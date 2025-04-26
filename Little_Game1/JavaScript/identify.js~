@@ -1,0 +1,20 @@
+<script>
+if (navigator.userAgent.match(/Mobi/i) || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i)) {
+	document.getElementById("play").innerHTML="<p>There is a game written in HTML and Javascript:</p>
+				<div class="box bg-2">
+				<form method=get action="Game.html">
+      			<button class="button button--tamaya button--round-l button--text-thick button--border-medium button--text-upper button--size-s button--inverted" data-text="Christmas"><span>Christmas</span></button>
+      		</form>   			
+    			</div>";
+} else {
+	document.getElementById("play").innerHTML="<p>There are some games written in HTML and Javascript:</p>
+				<div class="box bg-2">
+				<form method=get action="Game.html">
+      			<button class="button button--tamaya button--round-l button--text-thick button--border-medium button--text-upper button--size-s button--inverted" data-text="Christmas"><span>Christmas</span></button>
+      		</form>
+      		<form method=get action="FruitNinja/Game.html">
+      			<button class="button button--tamaya button--round-l button--text-thick button--border-medium button--text-upper button--size-s button--inverted" data-text="FruitNinja"><span>FruitNinja</span></button>
+				</form>    			
+    			</div>";
+}
+</script>
