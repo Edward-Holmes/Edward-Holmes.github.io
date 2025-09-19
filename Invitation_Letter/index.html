@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电子邀请函</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f3e9 0%, #f9e4c8 100%);
+            color: #543c29;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .invitation-card {
+            background: #fff9f0;
+            width: 100%;
+            max-width: 800px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #e67e22, #d35400);
+            padding: 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: #fff9f0;
+            border-radius: 50% 50% 0 0;
+        }
+        
+        .content {
+            padding: 40px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .left-column {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 20px;
+        }
+        
+        .right-column {
+            flex: 1;
+            min-width: 300px;
+            padding-left: 20px;
+            border-left: 2px dashed #e67e22;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #e67e22;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+        }
+        
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .details {
+            background: #fff2e0;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .detail-item {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .detail-item .icon {
+            width: 30px;
+            color: #e67e22;
+        }
+        
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: #e67e22;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(230, 126, 34, 0.3);
+        }
+        
+        .cta-button:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+        }
+        
+        .cta-button:active {
+            transform: translateY(0);
+        }
+        
+        .decoration {
+            text-align: center;
+            margin: 20px 0;
+            color: #e67e22;
+            font-size: 2rem;
+        }
+        
+        .footer {
+            background: #f8f3e9;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #7a6150;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            color: #e67e22;
+            margin-bottom: 10px;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .left-column, .right-column {
+                padding: 0;
+                border: none;
+            }
+            
+            .right-column {
+                border-top: 2px dashed #e67e22;
+                padding-top: 30px;
+                margin-top: 30px;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-card">
+        <div class="header">
+            <h1>电子邀请函</h1>
+            <p>厨皇招生大会</p>
+        </div>
+        
+        <div class="content">
+            <div class="left-column">
+                <div class="section fade-in">
+                    <h2><i class="fas fa-calendar-alt"></i> 活动详情</h2>
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="icon"><i class="fas fa-clock"></i></div>
+                            <div>2025年9月29日（星期一）下午10:00-4:00</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>东莞横沥镇西域三区西乡13号<br>东莞市稻香中菜厨艺职业培训学院<br>稻香饮食文化中心<br>左侧2楼<br>比赛直播厅</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section fade-in">
+                    <h2><i class="fa fa-institution"></i> 讲座内容</h2>
+                    <p>大美良膳国际学院招生（有厨艺基础者）</p>
+                    <p>3个月课程后安排香港生活</p>
+                    <p>培训人才升级</p>
+                    <p>专家协助规划人生</p>
+                    <p>成功人生者亲述人生蜕变过程</p>
+                </div>
+                
+                <div class="section fade-in">
+                    <h2><i class="fa fa-gift"></i> 会场安排</h2>
+                    <p>备有小礼物，送完即止</p>
+                </div>
+
+                <div class="section fade-in">
+                    <h2><i class="fas fa-graduation-cap"></i> 特邀嘉宾</h2>
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="icon"><i class="fa-solid fa-image"></i></div>
+                            <div><img src="image/zhang.png" alt="描述图片" width="100" height="100"></div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon"><i class="fa fa-address-card"></i></div>
+                            <div>中国厨皇御品集团有限公司 董事长<br>香港星儿学院 创办人及校监<br>大美良膳国际学院 院长<br>张华英教授</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-column">
+                <div class="section fade-in">
+                    <!--<h2><i class="fas fa-graduation-cap"></i> 特邀嘉宾</h2>
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="icon"><i class="fa-solid fa-image"></i></div>
+                            <div><img src="image/zhang.png" alt="描述图片" width="100" height="100"></div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon"><i class="fa fa-address-card"></i></div>
+                            <div>中国厨皇御品集团有限公司 董事长<br>香港星儿学院 创办人及校监<br>大美良膳国际学院 院长<br>张华英教授</div>
+                        </div>
+                    </div> -->
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="icon"><i class="fa-solid fa-image"></i></div>
+                            <div><img src="image/huang.jpg" alt="描述图片" width="100" height="100"></div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon"><i class="fa fa-address-card"></i></div>
+                            <div>东莞市稻香中菜厨艺职业培训学院 院长<br>黄玉婵</div>
+                        </div>
+                    </div>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="icon"><i class="fa-solid fa-image"></i></div>
+                            <div><img src="image/zhou.png" alt="描述图片" width="100" height="100"></div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon"><i class="fa fa-address-card"></i></div>
+                            <div>中国烹饪大师<br>荣获“中国伊尹奖”<br>中国星厨学院 院长<br>周伟武</div>
+                        </div>
+                    </div>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="icon"><i class="fa-solid fa-image"></i></div>
+                            <div><img src="image/Anand.jpg" alt="描述图片" width="100" height="100"></div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon"><i class="fa fa-address-card"></i></div>
+                            <div>Indian chopstick 印度筷子 董事长<br>人生大赢家<br>Mr. Anand</div>
+                        </div>
+                    </div>
+                </div>
+            <!--    
+                <div class="decoration fade-in">
+                    <i class="fas fa-mortar-pestle"></i>
+                    <i class="fas fa-cheese"></i>
+                    <i class="fas fa-carrot"></i>
+                    <i class="fas fa-bread-slice"></i>
+                </div>
+                
+                <div class="section fade-in">
+                    <h2><i class="fas fa-phone-alt"></i> 立即确认</h2>
+                    <p>请于9月10日前确认您的出席，以便我们为您做好准备。</p>
+                    <button class="cta-button" id="rsvpButton">确认参加</button>
+                </div>
+            -->
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="logo">
+                <i class="fas fa-cheese"></i>
+            </div>
+            <p>厨皇招生大会 · 大美良膳国际学院招生 since 2025</p>
+            <p>联系电话: 0123-456789 | 邮箱: admission@culinaryschool.com</p>
+        </div>
+    </div>
+    <script>
+        // 淡入动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            function checkFade() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - 100) {
+                        element.style.opacity = 1;
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            }
+            
+            // 初始检查
+            checkFade();
+            
+            // 滚动时检查
+            window.addEventListener('scroll', checkFade);
+            
+            // RSVP按钮功能
+            document.getElementById('rsvpButton').addEventListener('click', function() {
+                alert('感谢您确认参加！我们已经收到您的回复，期待在开学典礼上与您相见！');
+                this.textContent = '已确认参加';
+                this.style.background = '#27ae60';
+                this.disabled = true;
+            });
+        });
+    </script>
+</body>
+</html>
