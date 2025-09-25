@@ -1,6 +1,6 @@
 Edward's Private Website
 
-Here is the webpage:
+Here is the webpages:
 
 Game 1: <https://edward-holmes.github.io/Little_Game1/Game.html>
 
