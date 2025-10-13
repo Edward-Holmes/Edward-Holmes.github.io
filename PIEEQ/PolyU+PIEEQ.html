@@ -171,7 +171,7 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
-        .pdf-link {
+        .pdf-link, .excel-link {
             display: inline-block;
             margin-top: 10px;
             padding: 8px 15px;
@@ -180,12 +180,128 @@
             text-decoration: none;
             border-radius: 4px;
             transition: background 0.3s;
+            cursor: pointer;
         }
         
-        .pdf-link:hover {
+        .pdf-link:hover, .excel-link:hover {
             background: #1a68e0;
         }
         
+        /* Excel表格查看器样式 */
+        .excel-viewer {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+        }
+        
+        .excel-viewer.active {
+            display: flex;
+        }
+        
+        .excel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #2575fc;
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .excel-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .excel-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background 0.3s;
+        }
+        
+        .excel-close:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .excel-content {
+            flex: 1;
+            overflow: auto;
+            padding: 20px;
+        }
+        
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        
+        .excel-table th, .excel-table td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        
+        .excel-table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+        
+        .excel-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .excel-table tr:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 20px;
+            color: #d32f2f;
+            background: #ffebee;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
         /* 响应式设计 */
         @media (max-width: 768px) {
             body {
@@ -216,6 +332,19 @@
             .pdf-container {
                 grid-template-columns: 1fr;
             }
+            
+            .excel-viewer {
+                width: 95%;
+                height: 90vh;
+            }
+            
+            .excel-table {
+                font-size: 0.8rem;
+            }
+            
+            .excel-table th, .excel-table td {
+                padding: 6px 8px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -234,6 +363,14 @@
             .course-marker {
                 font-size: 0.5rem;
                 padding: 1px 2px;
+            }
+            
+            .excel-table {
+                font-size: 0.7rem;
+            }
+            
+            .excel-table th, .excel-table td {
+                padding: 4px 6px;
             }
         }
         /* 学习！！！卷疯自己，卷死同学！桀桀桀桀桀！！！ */
@@ -417,6 +554,18 @@
             </div>
         </section>
         
+        <!-- Excel表格查看器 -->
+        <div class="overlay" id="excelOverlay"></div>
+        <div class="excel-viewer" id="excelViewer">
+            <div class="excel-header">
+                <div class="excel-title" id="excelTitle">Excel文件内容</div>
+                <button class="excel-close" id="excelClose">×</button>
+            </div>
+            <div class="excel-content" id="excelContent">
+                <div class="loading">正在加载Excel文件内容...</div>
+            </div>
+        </div>
+        
         <!-- PIEEQ啥时候弄个类似Blackboard的玩意？ -->
         <section class="pdf-section">
             <h2>课程资料预览</h2>
@@ -446,10 +595,120 @@
                     <h3>其他文件</h3>
                     <a href="./file/其他/BA Class Timetable2025_PIEEQ(1).pdf" class="pdf-link" target="_blank">课程表原件</a>
                     <a href="./file/其他/港理大高管培训学院-申请流程指南.pdf" class="pdf-link" target="_blank">港理大高管培训学院-申请流程指南</a>
-                    <!--<a href="./file/其他/商务分析(2).xlsx" class="pdf-link" target="_blank">港理大高管培训学院-商务分析-学生邮件</a> -->
+                    <a href="./file/其他/商务分析(2).xlsx" class="excel-link" data-filename="商务分析学生邮件">港理大高管培训学院-商务分析-学生邮件</a>
                 </div>
             </div>
         </section>
     </div>
+
+    <!-- 引入SheetJS库用于读取Excel文件 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+    <script>
+        // Excel查看器功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const excelLinks = document.querySelectorAll('.excel-link');
+            const excelViewer = document.getElementById('excelViewer');
+            const excelOverlay = document.getElementById('excelOverlay');
+            const excelClose = document.getElementById('excelClose');
+            const excelTitle = document.getElementById('excelTitle');
+            const excelContent = document.getElementById('excelContent');
+            
+            // 为所有Excel链接添加点击事件
+            excelLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const excelUrl = this.getAttribute('href');
+                    const fileName = this.getAttribute('data-filename') || 'Excel文件';
+                    
+                    // 显示查看器和遮罩
+                    excelViewer.classList.add('active');
+                    excelOverlay.classList.add('active');
+                    excelTitle.textContent = fileName;
+                    
+                    // 加载Excel文件
+                    loadExcelFile(excelUrl, excelContent);
+                });
+            });
+            
+            // 关闭查看器
+            excelClose.addEventListener('click', closeExcelViewer);
+            excelOverlay.addEventListener('click', closeExcelViewer);
+            
+            // ESC键关闭
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeExcelViewer();
+                }
+            });
+            
+            function closeExcelViewer() {
+                excelViewer.classList.remove('active');
+                excelOverlay.classList.remove('active');
+            }
+            
+            function loadExcelFile(url, container) {
+                container.innerHTML = '<div class="loading">正在加载Excel文件内容...</div>';
+                
+                // 使用fetch获取Excel文件
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('网络响应不正常');
+                        }
+                        return response.arrayBuffer();
+                    })
+                    .then(arrayBuffer => {
+                        // 使用SheetJS解析Excel文件
+                        const data = new Uint8Array(arrayBuffer);
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        
+                        // 清空容器
+                        container.innerHTML = '';
+                        
+                        // 为每个工作表创建表格
+                        workbook.SheetNames.forEach(sheetName => {
+                            const worksheet = workbook.Sheets[sheetName];
+                            const htmlString = XLSX.utils.sheet_to_html(worksheet, {
+                                editable: false,
+                                header: ''
+                            });
+                            
+                            // 创建工作表标题
+                            const sheetTitle = document.createElement('h3');
+                            sheetTitle.textContent = `工作表: ${sheetName}`;
+                            sheetTitle.style.marginBottom = '15px';
+                            sheetTitle.style.color = '#2575fc';
+                            container.appendChild(sheetTitle);
+                            
+                            // 创建表格容器
+                            const tableContainer = document.createElement('div');
+                            tableContainer.style.overflow = 'auto';
+                            tableContainer.style.marginBottom = '30px';
+                            
+                            // 添加HTML表格
+                            const tempDiv = document.createElement('div');
+                            tempDiv.innerHTML = htmlString;
+                            const table = tempDiv.querySelector('table');
+                            
+                            if (table) {
+                                table.className = 'excel-table';
+                                tableContainer.appendChild(table);
+                                container.appendChild(tableContainer);
+                            }
+                        });
+                        
+                        // 如果没有工作表内容，显示错误
+                        if (container.children.length === 0) {
+                            container.innerHTML = '<div class="error">无法解析Excel文件内容</div>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('加载Excel文件失败:', error);
+                        container.innerHTML = `<div class="error">加载失败: ${error.message}</div>`;
+                    });
+            }
+        });
+    </script>
 </body>
 </html>
