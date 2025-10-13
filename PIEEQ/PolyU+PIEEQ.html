@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程管理与日历系统</title>
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin: 20px 0 15px;
+            color: #2575fc;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            margin: 15px 0 10px;
+            color: #6a11cb;
+        }
+        
+        /* 日历部分样式 */
+        .calendar-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .calendar-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .month-calendar {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .month-header {
+            background: #2575fc;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background-color: #e0e0e0;
+        }
+        
+        .day-header {
+            background: #f0f0f0;
+            padding: 10px 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .calendar-day {
+            background: white;
+            padding: 10px 5px;
+            min-height: 80px;
+            position: relative;
+        }
+        
+        .date-number {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .course-marker {
+            font-size: 0.7rem;
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin-top: 3px;
+            display: block;
+        }
+        
+        .research-methods {
+            background-color: #ffcdd2;
+            color: #c62828;
+        }
+        
+        .marketing-management {
+            background-color: #c8e6c9;
+            color: #2e7d32;
+        }
+        
+        .organization-management {
+            background-color: #bbdefb;
+            color: #1565c0;
+        }
+        
+        .business-analysis {
+            background-color: #e1bee7;
+            color: #7b1fa2;
+        }
+        
+        /* PDF预览部分样式 */
+        .pdf-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .pdf-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .pdf-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .pdf-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .pdf-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #2575fc;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        
+        .pdf-link:hover {
+            background: #1a68e0;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .calendar-day {
+                min-height: 60px;
+                padding: 5px 2px;
+            }
+            
+            .date-number {
+                font-size: 0.9rem;
+            }
+            
+            .course-marker {
+                font-size: 0.6rem;
+            }
+            
+            .pdf-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+            }
+            
+            .calendar-day {
+                min-height: 50px;
+            }
+            
+            .date-number {
+                font-size: 0.8rem;
+            }
+            
+            .course-marker {
+                font-size: 0.5rem;
+                padding: 1px 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>课程管理与日历系统</h1>
+            <p>2025年10月-11月课程安排与学习资料</p>
+        </header>
+        
+        <section class="calendar-section">
+            <h2>2025年10月-11月课程日历</h2>
+            <div class="calendar-container">
+                <!-- 2025年10月日历 -->
+                <div class="month-calendar">
+                    <div class="month-header">2025年10月</div>
+                    <div class="calendar-grid">
+                        <div class="day-header">日</div>
+                        <div class="day-header">一</div>
+                        <div class="day-header">二</div>
+                        <div class="day-header">三</div>
+                        <div class="day-header">四</div>
+                        <div class="day-header">五</div>
+                        <div class="day-header">六</div>
+                        
+                        <!-- 10月1日是星期三，所以前3格为空 -->
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"><span class="date-number">1</span></div>
+                        <div class="calendar-day"><span class="date-number">2</span></div>
+                        <div class="calendar-day"><span class="date-number">3</span></div>
+                        <div class="calendar-day"><span class="date-number">4</span></div>
+                        
+                        <div class="calendar-day"><span class="date-number">5</span></div>
+                        <div class="calendar-day"><span class="date-number">6</span></div>
+                        <div class="calendar-day"><span class="date-number">7</span></div>
+                        <div class="calendar-day"><span class="date-number">8</span></div>
+                        <div class="calendar-day"><span class="date-number">9</span></div>
+                        <div class="calendar-day"><span class="date-number">10</span></div>
+                        <div class="calendar-day"><span class="date-number">11</span></div>
+                        
+                        <div class="calendar-day"><span class="date-number">12</span></div>
+                        <div class="calendar-day"><span class="date-number">13</span>
+                            <span class="course-marker research-methods">研究方法(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">14</span>
+                            <span class="course-marker marketing-management">市场营销管理(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">15</span>
+                            <span class="course-marker organization-management">组织与管理(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">16</span></div>
+                        <div class="calendar-day"><span class="date-number">17</span></div>
+                        <div class="calendar-day"><span class="date-number">18</span></div>
+                        
+                        <div class="calendar-day"><span class="date-number">19</span></div>
+                        <div class="calendar-day"><span class="date-number">20</span>
+                            <span class="course-marker research-methods">研究方法(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">21</span>
+                            <span class="course-marker marketing-management">市场营销管理(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">22</span>
+                            <span class="course-marker organization-management">组织与管理(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">23</span>
+                            <span class="course-marker business-analysis">商业分析(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">24</span>
+                            <span class="course-marker business-analysis">商业分析(R323)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">25</span></div>
+                        
+                        <div class="calendar-day"><span class="date-number">26</span></div>
+                        <div class="calendar-day"><span class="date-number">27</span>
+                            <span class="course-marker research-methods">研究方法(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">28</span>
+                            <span class="course-marker marketing-management">市场营销管理(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">29</span>
+                            <span class="course-marker organization-management">组织与管理(重阳节，补课时间待定)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">30</span>
+                            <span class="course-marker business-analysis">商业分析(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">31</span></div>
+                        <div class="calendar-day"></div>
+                    </div>
+                </div>
+                
+                <!-- 2025年11月日历 -->
+                <div class="month-calendar">
+                    <div class="month-header">2025年11月</div>
+                    <div class="calendar-grid">
+                        <div class="day-header">日</div>
+                        <div class="day-header">一</div>
+                        <div class="day-header">二</div>
+                        <div class="day-header">三</div>
+                        <div class="day-header">四</div>
+                        <div class="day-header">五</div>
+                        <div class="day-header">六</div>
+                        
+                        <!-- 11月1日是星期六，所以前6格为空 -->
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"><span class="date-number">1</span></div>
+                        
+                        <div class="calendar-day"><span class="date-number">2</span></div>
+                        <div class="calendar-day"><span class="date-number">3</span>
+                            <span class="course-marker research-methods">研究方法(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">4</span>
+                            <span class="course-marker marketing-management">市场营销管理(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">5</span>
+                            <span class="course-marker organization-management">组织与管理(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">6</span>
+                            <span class="course-marker business-analysis">商业分析(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">7</span></div>
+                        <div class="calendar-day"><span class="date-number">8</span></div>
+                        
+                        <div class="calendar-day"><span class="date-number">9</span></div>
+                        <div class="calendar-day"><span class="date-number">10</span>
+                            <span class="course-marker research-methods">研究方法(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">11</span>
+                            <span class="course-marker marketing-management">市场营销管理(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">12</span>
+                            <span class="course-marker organization-management">组织与管理(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">13</span>
+                            <span class="course-marker business-analysis">商业分析(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">14</span></div>
+                        <div class="calendar-day"><span class="date-number">15</span></div>
+                        
+                        <div class="calendar-day"><span class="date-number">16</span></div>
+                        <div class="calendar-day"><span class="date-number">17</span>
+                            <span class="course-marker research-methods">研究方法(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">18</span>
+                            <span class="course-marker marketing-management">市场营销管理(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">19</span>
+                            <span class="course-marker organization-management">组织与管理(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">20</span>
+                            <span class="course-marker business-analysis">商业分析(R209)</span>
+                        </div>
+                        <div class="calendar-day"><span class="date-number">21</span></div>
+                        <div class="calendar-day"><span class="date-number">22</span></div>
+                        
+                        <div class="calendar-day"><span class="date-number">23</span></div>
+                        <div class="calendar-day"><span class="date-number">24</span></div>
+                        <div class="calendar-day"><span class="date-number">25</span></div>
+                        <div class="calendar-day"><span class="date-number">26</span></div>
+                        <div class="calendar-day"><span class="date-number">27</span></div>
+                        <div class="calendar-day"><span class="date-number">28</span></div>
+                        <div class="calendar-day"><span class="date-number">29</span></div>
+                        
+                        <div class="calendar-day"><span class="date-number">30</span></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="pdf-section">
+            <h2>课程资料预览</h2>
+            <div class="pdf-container">
+                <div class="pdf-card">
+                    <h3>研究方法</h3>
+                    <a href="./file/研究方法/PIEEQ研究方法Research Method_小组安排.pdf" class="pdf-link" target="_blank">小组安排</a>
+                    <a href="./file/研究方法/研究方向.pdf" class="pdf-link" target="_blank">第一节课笔记</a>
+                </div>
+                
+                <div class="pdf-card">
+                    <h3>市场营销管理</h3>
+                    <a href="./file/市场营销管理/Marketing Management Syllabus.pdf" class="pdf-link" target="_blank">课程大纲</a>
+                </div>
+                
+                <div class="pdf-card">
+                    <h3>组织与管理</h3>
+                    <a href="组织与管理.pdf" class="pdf-link" target="_blank">预览PDF</a>
+                </div>
+                
+                <div class="pdf-card">
+                    <h3>商业分析</h3>
+                    <a href="商业分析.pdf" class="pdf-link" target="_blank">预览PDF</a>
+                </div>
+
+                <div class="pdf-card">
+                    <h3>其他文件</h3>
+                    <a href="./file/其他/BA Class Timetable2025_PIEEQ(1).pdf" class="pdf-link" target="_blank">课程表原件</a>
+                    <a href="./file/其他/港理大高管培训学院-申请流程指南.pdf" class="pdf-link" target="_blank">港理大高管培训学院-申请流程指南</a>
+                    <!--<a href="./file/其他/商务分析(2).xlsx" class="pdf-link" target="_blank">港理大高管培训学院-商务分析-学生邮件</a> -->
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
