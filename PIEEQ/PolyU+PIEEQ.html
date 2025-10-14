@@ -198,6 +198,39 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
+
+        /* 底栏样式 */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        footer p {
+            margin: 5px 0;
+            line-height: 1.5;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        footer a:hover {
+            color: #e0e0e0;
+        }
+
+        /* 确保底栏在移动设备上显示良好 */
+        @media (max-width: 768px) {
+            footer {
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+        }
         
         /* 响应式设计 */
         @media (max-width: 768px) {
@@ -534,5 +567,15 @@
             </div>
         </section>-->
     </div>
+
+    </div> <!-- 这是原有.container的结束标签 -->
+
+    <footer>
+        <p>Copyright © 2025 ZHAO Shanhe (Edward). All rights reserved.</p>
+        <p>禁止向非PIEEQ和PolyU学生传播网页链接。</p>
+        <p>如遇到问题，请联系 <a href="mailto:zhuangch7306@163.com">zhuangch7306@163.com</a></p>
+    </footer>
+</body>
+</html>
 </body>
 </html>
