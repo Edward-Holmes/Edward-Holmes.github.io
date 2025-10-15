@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的GitHub博客</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .auth-section {
+            display: flex;
+            align-items: center;
+        }
+        
+        #github-token-input {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 4px;
+            margin-right: 10px;
+            width: 200px;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+        
+        /* 主要内容区 */
+        main {
+            padding: 2rem 0;
+            min-height: calc(100vh - 120px);
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* 文章列表样式 */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .article-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .article-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .article-content {
+            padding: 1.5rem;
+        }
+        
+        .article-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .article-excerpt {
+            color: #666;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .article-actions {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        /* 编辑器样式 */
+        .editor-container {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .editor-toolbar {
+            background: var(--light-color);
+            padding: 0.75rem;
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tool-btn {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+        }
+        
+        .tool-btn:hover {
+            background: #f0f0f0;
+        }
+        
+        .editor-content {
+            display: flex;
+            height: 500px;
+        }
+        
+        .editor-input, .editor-preview {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        
+        .editor-input {
+            border-right: 1px solid #eee;
+            font-family: 'Courier New', monospace;
+            resize: none;
+            border: none;
+            outline: none;
+        }
+        
+        .editor-preview {
+            background: #f9f9f9;
+        }
+        
+        .editor-actions {
+            padding: 1rem;
+            background: var(--light-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        
+        /* 表单样式 */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            .auth-section {
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            #github-token-input {
+                width: 150px;
+            }
+            
+            .editor-content {
+                flex-direction: column;
+                height: 700px;
+            }
+            
+            .editor-input, .editor-preview {
+                flex: none;
+                height: 50%;
+            }
+            
+            .editor-input {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+        }
+        
+        /* 加载动画 */
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--secondary-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* 通知样式 */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            color: white;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .notification.success {
+            background-color: var(--success-color);
+        }
+        
+        .notification.error {
+            background-color: var(--accent-color);
+        }
+        
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">我的<span>博客</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link" data-page="home">首页</a></li>
+                        <li><a href="#" class="nav-link" data-page="editor">写文章</a></li>
+                        <li><a href="#" class="nav-link" data-page="about">关于</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-section">
+                    <input type="password" id="github-token-input" placeholder="GitHub Token">
+                    <button id="save-token-btn" class="btn btn-primary">保存Token</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- 首页/文章列表 -->
+        <section id="home-page" class="page active">
+            <h1>最新文章</h1>
+            <div id="articles-container" class="articles-grid">
+                <!-- 文章将通过JS动态加载 -->
+            </div>
+            <div id="loader" class="loader hidden"></div>
+        </section>
+
+        <!-- 编辑器页面 -->
+        <section id="editor-page" class="page">
+            <h1 id="editor-title">创建新文章</h1>
+            <div class="editor-container">
+                <div class="form-group">
+                    <label for="article-title">文章标题</label>
+                    <input type="text" id="article-title" class="form-control" placeholder="输入文章标题">
+                </div>
+                
+                <div class="editor-toolbar">
+                    <button class="tool-btn" title="加粗" data-command="bold"><i class="fas fa-bold"></i></button>
+                    <button class="tool-btn" title="斜体" data-command="italic"><i class="fas fa-italic"></i></button>
+                    <button class="tool-btn" title="标题" data-command="heading"><i class="fas fa-heading"></i></button>
+                    <button class="tool-btn" title="引用" data-command="quote"><i class="fas fa-quote-right"></i></button>
+                    <button class="tool-btn" title="代码块" data-command="code"><i class="fas fa-code"></i></button>
+                    <button class="tool-btn" title="链接" data-command="link"><i class="fas fa-link"></i></button>
+                    <button class="tool-btn" title="图片" data-command="image"><i class="fas fa-image"></i></button>
+                    <button class="tool-btn" title="无序列表" data-command="unordered-list"><i class="fas fa-list-ul"></i></button>
+                    <button class="tool-btn" title="有序列表" data-command="ordered-list"><i class="fas fa-list-ol"></i></button>
+                </div>
+                
+                <div class="editor-content">
+                    <textarea id="editor-input" class="editor-input" placeholder="开始编写您的文章...（支持Markdown语法）"></textarea>
+                    <div id="editor-preview" class="editor-preview"></div>
+                </div>
+                
+                <div class="editor-actions">
+                    <button id="save-draft-btn" class="btn">保存草稿</button>
+                    <button id="publish-btn" class="btn btn-success">发布文章</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于页面 -->
+        <section id="about-page" class="page">
+            <h1>关于本博客</h1>
+            <p>这是一个基于GitHub Pages搭建的静态博客系统，利用GitHub API实现动态内容管理功能。</p>
+            <div class="features">
+                <h2>功能特性</h2>
+                <ul>
+                    <li>无需服务器，完全基于GitHub Pages托管</li>
+                    <li>通过GitHub API实现文章的增删改查</li>
+                    <li>支持Markdown格式的图文混排</li>
+                    <li>响应式设计，适配各种设备</li>
+                    <li>使用Gist或Issues存储文章数据[1,3](@ref)</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- 文章详情模态框 -->
+    <div id="article-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-article-title">文章标题</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div id="modal-article-content">
+                <!-- 文章内容将通过JS加载 -->
+            </div>
+            <div class="article-actions">
+                <button id="edit-article-btn" class="btn btn-primary">编辑</button>
+                <button id="delete-article-btn" class="btn btn-danger">删除</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 通知元素 -->
+    <div id="notification" class="notification"></div>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 我的GitHub博客 | 基于GitHub Pages构建</p>
+        </div>
+    </footer>
+
+    <script>
+        // 博客系统核心功能
+        class GitHubBlog {
+            constructor() {
+                this.token = localStorage.getItem('github_token') || '';
+                this.articles = [];
+                this.currentArticleId = null;
+                this.isEditing = false;
+                
+                this.init();
+            }
+            
+            init() {
+                this.bindEvents();
+                this.checkAuth();
+                this.loadArticles();
+                
+                // 初始化Markdown预览
+                this.updatePreview();
+            }
+            
+            bindEvents() {
+                // 导航链接
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.showPage(e.target.getAttribute('data-page'));
+                    });
+                });
+                
+                // 保存GitHub Token
+                document.getElementById('save-token-btn').addEventListener('click', () => {
+                    this.saveToken();
+                });
+                
+                // 编辑器工具栏
+                document.querySelectorAll('.tool-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.handleToolbarClick(e.target.closest('.tool-btn').getAttribute('data-command'));
+                    });
+                });
+                
+                // 编辑器输入实时预览
+                document.getElementById('editor-input').addEventListener('input', () => {
+                    this.updatePreview();
+                });
+                
+                // 发布文章
+                document.getElementById('publish-btn').addEventListener('click', () => {
+                    this.publishArticle();
+                });
+                
+                // 保存草稿
+                document.getElementById('save-draft-btn').addEventListener('click', () => {
+                    this.saveDraft();
+                });
+                
+                // 关闭模态框
+                document.querySelector('.close-modal').addEventListener('click', () => {
+                    this.hideModal();
+                });
+                
+                // 点击模态框外部关闭
+                document.getElementById('article-modal').addEventListener('click', (e) => {
+                    if (e.target.id === 'article-modal') {
+                        this.hideModal();
+                    }
+                });
+                
+                // 编辑文章
+                document.getElementById('edit-article-btn').addEventListener('click', () => {
+                    this.editArticle();
+                });
+                
+                // 删除文章
+                document.getElementById('delete-article-btn').addEventListener('click', () => {
+                    this.deleteArticle();
+                });
+            }
+            
+            showPage(pageId) {
+                // 隐藏所有页面
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // 显示目标页面
+                document.getElementById(`${pageId}-page`).classList.add('active');
+                
+                // 如果是编辑器页面且是新建文章，重置表单
+                if (pageId === 'editor' && !this.isEditing) {
+                    this.resetEditor();
+                }
+            }
+            
+            saveToken() {
+                const tokenInput = document.getElementById('github-token-input');
+                this.token = tokenInput.value.trim();
+                
+                if (this.token) {
+                    localStorage.setItem('github_token', this.token);
+                    this.showNotification('Token保存成功!', 'success');
+                    this.loadArticles();
+                } else {
+                    this.showNotification('请输入有效的Token', 'error');
+                }
+            }
+            
+            checkAuth() {
+                const tokenInput = document.getElementById('github-token-input');
+                tokenInput.value = this.token;
+                
+                if (!this.token) {
+                    this.showNotification('请先设置GitHub Token以使用完整功能', 'error');
+                }
+            }
+            
+            async loadArticles() {
+                if (!this.token) return;
+                
+                this.showLoader(true);
+                
+                try {
+                    // 使用GitHub API获取Gist中的数据
+                    // 这里简化实现，实际应用中需要根据您的存储方式调整
+                    const response = await fetch('https://api.github.com/gists', {
+                        headers: {
+                            'Authorization': `token ${this.token}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    });
+                    
+                    if (!response.ok) throw new Error('获取文章列表失败');
+                    
+                    const gists = await response.json();
+                    this.articles = gists.filter(gist => 
+                        gist.description && gist.description.startsWith('BLOG_ARTICLE')
+                    ).map(gist => ({
+                        id: gist.id,
+                        title: gist.description.replace('BLOG_ARTICLE:', ''),
+                        content: Object.values(gist.files)[0].content,
+                        createdAt: gist.created_at,
+                        updatedAt: gist.updated_at
+                    }));
+                    
+                    this.renderArticles();
+                } catch (error) {
+                    console.error('加载文章失败:', error);
+                    this.showNotification('加载文章失败: ' + error.message, 'error');
+                } finally {
+                    this.showLoader(false);
+                }
+            }
+            
+            renderArticles() {
+                const container = document.getElementById('articles-container');
+                
+                if (this.articles.length === 0) {
+                    container.innerHTML = '<p>暂无文章，点击"写文章"创建您的第一篇博客</p>';
+                    return;
+                }
+                
+                container.innerHTML = this.articles.map(article => `
+                    <div class="article-card" data-id="${article.id}">
+                        <div class="article-image" style="background-image: url('https://picsum.photos/400/200?random=${article.id}')"></div>
+                        <div class="article-content">
+                            <h3 class="article-title">${article.title}</h3>
+                            <p class="article-excerpt">${article.content.substring(0, 100)}...</p>
+                            <div class="article-meta">
+                                <span>${new Date(article.updatedAt).toLocaleDateString()}</span>
+                            </div>
+                            <div class="article-actions">
+                                <button class="btn btn-primary read-article">阅读</button>
+                                <button class="btn btn-warning edit-article">编辑</button>
+                                <button class="btn btn-danger delete-article">删除</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                // 绑定文章操作事件
+                container.querySelectorAll('.read-article').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const articleId = e.target.closest('.article-card').getAttribute('data-id');
+                        this.viewArticle(articleId);
+                    });
+                });
+                
+                container.querySelectorAll('.edit-article').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const articleId = e.target.closest('.article-card').getAttribute('data-id');
+                        this.startEditArticle(articleId);
+                    });
+                });
+                
+                container.querySelectorAll('.delete-article').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const articleId = e.target.closest('.article-card').getAttribute('data-id');
+                        if (confirm('确定要删除这篇文章吗？此操作不可撤销。')) {
+                            this.deleteArticle(articleId);
+                        }
+                    });
+                });
+            }
+            
+            viewArticle(articleId) {
+                const article = this.articles.find(a => a.id === articleId);
+                if (!article) return;
+                
+                document.getElementById('modal-article-title').textContent = article.title;
+                document.getElementById('modal-article-content').innerHTML = marked.parse(article.content);
+                
+                // 显示编辑和删除按钮
+                document.getElementById('edit-article-btn').style.display = 'inline-block';
+                document.getElementById('delete-article-btn').style.display = 'inline-block';
+                document.getElementById('edit-article-btn').setAttribute('data-id', articleId);
+                document.getElementById('delete-article-btn').setAttribute('data-id', articleId);
+                
+                this.showModal();
+            }
+            
+            startEditArticle(articleId) {
+                const article = this.articles.find(a => a.id === articleId);
+                if (!article) return;
+                
+                this.isEditing = true;
+                this.currentArticleId = articleId;
+                
+                document.getElementById('editor-title').textContent = '编辑文章';
+                document.getElementById('article-title').value = article.title;
+                document.getElementById('editor-input').value = article.content;
+                this.updatePreview();
+                
+                this.showPage('editor');
+            }
+            
+            async publishArticle() {
+                if (!this.token) {
+                    this.showNotification('请先设置GitHub Token', 'error');
+                    return;
+                }
+                
+                const title = document.getElementById('article-title').value.trim();
+                const content = document.getElementById('editor-input').value.trim();
+                
+                if (!title) {
+                    this.showNotification('请输入文章标题', 'error');
+                    return;
+                }
+                
+                if (!content) {
+                    this.showNotification('文章内容不能为空', 'error');
+                    return;
+                }
+                
+                try {
+                    let response;
+                    
+                    if (this.isEditing && this.currentArticleId) {
+                        // 更新现有文章
+                        response = await fetch(`https://api.github.com/gists/${this.currentArticleId}`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Authorization': `token ${this.token}`,
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/vnd.github.v3+json'
+                            },
+                            body: JSON.stringify({
+                                description: `BLOG_ARTICLE:${title}`,
+                                files: {
+                                    'article.md': {
+                                        content: content
+                                    }
+                                }
+                            })
+                        });
+                    } else {
+                        // 创建新文章
+                        response = await fetch('https://api.github.com/gists', {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `token ${this.token}`,
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/vnd.github.v3+json'
+                            },
+                            body: JSON.stringify({
+                                description: `BLOG_ARTICLE:${title}`,
+                                public: true,
+                                files: {
+                                    'article.md': {
+                                        content: content
+                                    }
+                                }
+                            })
+                        });
+                    }
+                    
+                    if (!response.ok) throw new Error('发布文章失败');
+                    
+                    this.showNotification(
+                        this.isEditing ? '文章更新成功!' : '文章发布成功!', 
+                        'success'
+                    );
+                    
+                    // 重置编辑器并返回首页
+                    this.resetEditor();
+                    this.showPage('home');
+                    this.loadArticles(); // 重新加载文章列表
+                    
+                } catch (error) {
+                    console.error('发布文章失败:', error);
+                    this.showNotification('发布文章失败: ' + error.message, 'error');
+                }
+            }
+            
+            async deleteArticle(articleId) {
+                if (!this.token) {
+                    this.showNotification('请先设置GitHub Token', 'error');
+                    return;
+                }
+                
+                if (!articleId) {
+                    articleId = document.getElementById('delete-article-btn').getAttribute('data-id');
+                }
+                
+                if (!articleId) return;
+                
+                try {
+                    const response = await fetch(`https://api.github.com/gists/${articleId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `token ${this.token}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    });
+                    
+                    if (!response.ok) throw new Error('删除文章失败');
+                    
+                    this.showNotification('文章删除成功!', 'success');
+                    this.hideModal();
+                    this.loadArticles(); // 重新加载文章列表
+                    
+                } catch (error) {
+                    console.error('删除文章失败:', error);
+                    this.showNotification('删除文章失败: ' + error.message, 'error');
+                }
+            }
+            
+            saveDraft() {
+                const title = document.getElementById('article-title').value;
+                const content = document.getElementById('editor-input').value;
+                
+                const draft = {
+                    title: title || '无标题',
+                    content: content,
+                    savedAt: new Date().toISOString()
+                };
+                
+                localStorage.setItem('blog_draft', JSON.stringify(draft));
+                this.showNotification('草稿已保存', 'success');
+            }
+            
+            loadDraft() {
+                const draft = localStorage.getItem('blog_draft');
+                if (draft) {
+                    const draftData = JSON.parse(draft);
+                    document.getElementById('article-title').value = draftData.title;
+                    document.getElementById('editor-input').value = draftData.content;
+                    this.updatePreview();
+                    this.showNotification('草稿已加载', 'success');
+                }
+            }
+            
+            resetEditor() {
+                document.getElementById('article-title').value = '';
+                document.getElementById('editor-input').value = '';
+                this.updatePreview();
+                this.isEditing = false;
+                this.currentArticleId = null;
+                document.getElementById('editor-title').textContent = '创建新文章';
+            }
+            
+            handleToolbarClick(command) {
+                const textarea = document.getElementById('editor-input');
+                const start = textarea.selectionStart;
+                const end = textarea.selectionEnd;
+                const selectedText = textarea.value.substring(start, end);
+                let newText = '';
+                
+                switch(command) {
+                    case 'bold':
+                        newText = `**${selectedText}**`;
+                        break;
+                    case 'italic':
+                        newText = `*${selectedText}*`;
+                        break;
+                    case 'heading':
+                        newText = `# ${selectedText}`;
+                        break;
+                    case 'quote':
+                        newText = `> ${selectedText}`;
+                        break;
+                    case 'code':
+                        newText = `\`${selectedText}\``;
+                        break;
+                    case 'link':
+                        newText = `[${selectedText}](https://)`;
+                        break;
+                    case 'image':
+                        newText = `![${selectedText}](https://)`;
+                        break;
+                    case 'unordered-list':
+                        newText = `- ${selectedText}`;
+                        break;
+                    case 'ordered-list':
+                        newText = `1. ${selectedText}`;
+                        break;
+                }
+                
+                // 插入格式化的文本
+                textarea.value = textarea.value.substring(0, start) + newText + textarea.value.substring(end);
+                
+                // 更新预览
+                this.updatePreview();
+                
+                // 将焦点设置回文本框
+                textarea.focus();
+            }
+            
+            updatePreview() {
+                const content = document.getElementById('editor-input').value;
+                document.getElementById('editor-preview').innerHTML = marked.parse(content || '预览将在此处显示');
+            }
+            
+            showModal() {
+                document.getElementById('article-modal').style.display = 'flex';
+            }
+            
+            hideModal() {
+                document.getElementById('article-modal').style.display = 'none';
+            }
+            
+            showLoader(show) {
+                document.getElementById('loader').classList.toggle('hidden', !show);
+            }
+            
+            showNotification(message, type) {
+                const notification = document.getElementById('notification');
+                notification.textContent = message;
+                notification.className = `notification ${type}`;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+        }
+        
+        // 初始化博客系统
+        document.addEventListener('DOMContentLoaded', () => {
+            new GitHubBlog();
+        });
+    </script>
+</body>
+</html>
