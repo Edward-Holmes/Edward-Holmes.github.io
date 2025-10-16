@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>这里有一份A组的展示</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 2.2rem;
+        }
+        
+        .description {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .chart-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .chart-option {
+            display: flex;
+            align-items: center;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        
+        .chart-option input {
+            display: none;
+        }
+        
+        .custom-radio {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #3498db;
+            margin-right: 8px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .chart-option input:checked + .custom-radio {
+            background-color: #3498db;
+            border-color: #3498db;
+        }
+        
+        .chart-option input:checked + .custom-radio::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .chart-option label {
+            cursor: pointer;
+            font-weight: 500;
+            color: #2c3e50;
+            transition: color 0.3s ease;
+        }
+        
+        .chart-option input:checked ~ label {
+            color: #3498db;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 500px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .chart-title {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .chart-container {
+                height: 400px;
+            }
+            
+            .chart-selector {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .chart-option {
+                margin: 5px 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .chart-container {
+                height: 350px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>这里有一份A组的展示</h1>
+    <p class="description">通过下方选择框切换查看不同的统计图表，图表支持鼠标交互</p>
+    
+    <div class="container">
+        <div class="chart-selector">
+            <div class="chart-option">
+                <input type="radio" id="chart1" name="chart" value="chart1" checked>
+                <span class="custom-radio"></span>
+                <label for="chart1">绩效状态自尊</label>
+            </div>
+            <div class="chart-option">
+                <input type="radio" id="chart2" name="chart" value="chart2">
+                <span class="custom-radio"></span>
+                <label for="chart2">品牌评价</label>
+            </div>
+            <div class="chart-option">
+                <input type="radio" id="chart3" name="chart" value="chart3">
+                <span class="custom-radio"></span>
+                <label for="chart3">自我品牌连接</label>
+            </div>
+        </div>
+        
+        <div class="chart-title" id="current-chart-title">绩效状态自尊</div>
+        
+        <div class="chart-container">
+            <canvas id="chart1-canvas"></canvas>
+            <canvas id="chart2-canvas" style="display: none;"></canvas>
+            <canvas id="chart3-canvas" style="display: none;"></canvas>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 A组展示 | 基于Chart.js构建</p>
+    </footer>
+
+    <script>
+        // 图表1数据：绩效状态自尊
+        const chart1Data = {
+            labels: ['No Affirmation', 'Affirmation', 'No Affirmation', 'Affirmation'],
+            datasets: [
+                {
+                    label: 'Fair Performance',
+                    data: [4.41, 4.66, 4.09, 4.61],
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Poor Performance',
+                    data: [5.05, 4.74, 5.25, 4.54],
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        // 图表2数据：品牌评价
+        const chart2Data = {
+            labels: ['No Affirmation', 'Affirmation', 'No Affirmation', 'Affirmation'],
+            datasets: [
+                {
+                    label: 'Fair Performance',
+                    data: [4.82, 4.73, 5.99, 6.21],
+                    backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Poor Performance',
+                    data: [3.70, 4.32, 6.32, 5.35],
+                    backgroundColor: 'rgba(255, 159, 64, 0.7)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        // 图表3数据：自我品牌连接
+        const chart3Data = {
+            labels: ['No Affirmation', 'Affirmation', 'No Affirmation', 'Affirmation'],
+            datasets: [
+                {
+                    label: 'Fair Performance',
+                    data: [-1.00, -1.09, 1.52, 1.54],
+                    backgroundColor: 'rgba(153, 102, 255, 0.7)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Poor Performance',
+                    data: [-1.23, -0.95, 1.59, 0.94],
+                    backgroundColor: 'rgba(255, 205, 86, 0.7)',
+                    borderColor: 'rgba(255, 205, 86, 1)',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        // 通用配置
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'SBC水平与肯定条件',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    },
+                    ticks: {
+                        callback: function(value, index, ticks) {
+                            const groups = ['Low SBC (-1SD)', 'High SBC (+1SD)'];
+                            const subGroups = ['No Affirmation', 'Affirmation'];
+                            if (index % 2 === 0) {
+                                return groups[Math.floor(index/2)] + '\n' + subGroups[index % 2];
+                            }
+                            return subGroups[index % 2];
+                        },
+                        font: {
+                            size: 12
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: false,
+                    title: {
+                        display: true,
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                }
+            },
+            interaction: {
+                mode: 'nearest',
+                axis: 'x',
+                intersect: false
+            }
+        };
+
+        // 图表1配置
+        const chart1Options = {
+            ...commonOptions,
+            scales: {
+                ...commonOptions.scales,
+                y: {
+                    ...commonOptions.scales.y,
+                    title: {
+                        ...commonOptions.scales.y.title,
+                        text: '绩效状态自尊'
+                    },
+                    min: 1,
+                    max: 7
+                }
+            }
+        };
+
+        // 图表2配置
+        const chart2Options = {
+            ...commonOptions,
+            scales: {
+                ...commonOptions.scales,
+                y: {
+                    ...commonOptions.scales.y,
+                    title: {
+                        ...commonOptions.scales.y.title,
+                        text: '品牌评价'
+                    },
+                    min: 1,
+                    max: 7
+                }
+            }
+        };
+
+        // 图表3配置
+        const chart3Options = {
+            ...commonOptions,
+            scales: {
+                ...commonOptions.scales,
+                y: {
+                    ...commonOptions.scales.y,
+                    title: {
+                        ...commonOptions.scales.y.title,
+                        text: '自我品牌连接'
+                    },
+                    min: -3,
+                    max: 3
+                }
+            }
+        };
+
+        // 创建图表
+        const ctx1 = document.getElementById('chart1-canvas').getContext('2d');
+        const chart1 = new Chart(ctx1, {
+            type: 'bar',
+            data: chart1Data,
+            options: chart1Options
+        });
+
+        const ctx2 = document.getElementById('chart2-canvas').getContext('2d');
+        const chart2 = new Chart(ctx2, {
+            type: 'bar',
+            data: chart2Data,
+            options: chart2Options
+        });
+
+        const ctx3 = document.getElementById('chart3-canvas').getContext('2d');
+        const chart3 = new Chart(ctx3, {
+            type: 'bar',
+            data: chart3Data,
+            options: chart3Options
+        });
+
+        // 切换图表功能
+        const chartRadios = document.querySelectorAll('input[name="chart"]');
+        const chartCanvases = document.querySelectorAll('.chart-container canvas');
+        const chartTitle = document.getElementById('current-chart-title');
+        
+        const chartTitles = {
+            'chart1': '绩效状态自尊',
+            'chart2': '品牌评价',
+            'chart3': '自我品牌连接'
+        };
+        
+        chartRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.checked) {
+                    // 更新图表标题
+                    chartTitle.textContent = chartTitles[this.value];
+                    
+                    // 隐藏所有图表
+                    chartCanvases.forEach(canvas => {
+                        canvas.style.display = 'none';
+                    });
+                    
+                    // 显示选中的图表
+                    document.getElementById(`${this.value}-canvas`).style.display = 'block';
+                    
+                    // 重新调整图表大小
+                    setTimeout(() => {
+                        switch(this.value) {
+                            case 'chart1':
+                                chart1.resize();
+                                break;
+                            case 'chart2':
+                                chart2.resize();
+                                break;
+                            case 'chart3':
+                                chart3.resize();
+                                break;
+                        }
+                    }, 10);
+                }
+            });
+        });
+
+        // 初始调整图表大小
+        window.addEventListener('resize', function() {
+            chart1.resize();
+            chart2.resize();
+            chart3.resize();
+        });
+    </script>
+</body>
+</html>
