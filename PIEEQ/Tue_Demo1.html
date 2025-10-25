@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香港旅客数据可视化统计</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a237e, #283593);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .chart-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .chart-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #1a237e;
+            border-bottom: 2px solid #e8eaf6;
+            padding-bottom: 8px;
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+            margin-bottom: 15px;
+        }
+        
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+            border-radius: 3px;
+        }
+        
+        .chart-note {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .data-source {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        @media (max-width: 1024px) {
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 特殊样式 */
+        .special-chart {
+            grid-column: 1 / -1;
+        }
+        
+        .sub-charts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .sub-chart-wrapper {
+            height: 250px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>香港旅客数据可视化统计</h1>
+            <p class="description">本页面展示香港旅客的来源地、年龄、收入、旅游目的及消费构成的可视化分析</p>
+        </header>
+        
+        <div class="charts-container">
+            <!-- 图1：来源国/地区分布 - 条形图 -->
+            <div class="chart-card">
+                <h2 class="chart-title">图1：香港旅客来源国/地区分布</h2>
+                <div class="chart-wrapper">
+                    <canvas id="sourceChart"></canvas>
+                </div>
+                <div class="chart-legend" id="sourceLegend"></div>
+                <p class="chart-note">中国内地是香港最主要的游客来源地，占总游客量的68%</p>
+            </div>
+            
+            <!-- 图3：旅游目的分类 - 细圆环图 -->
+            <div class="chart-card">
+                <h2 class="chart-title">图3：香港旅客旅游目的分类</h2>
+                <div class="chart-wrapper">
+                    <canvas id="purposeChart"></canvas>
+                </div>
+                <div class="chart-legend" id="purposeLegend"></div>
+                <p class="chart-note">休闲度假是香港旅客出行的主要目的，占50%</p>
+            </div>
+            
+            <!-- 图4：旅游消费构成 - 粗圆环图 -->
+            <div class="chart-card">
+                <h2 class="chart-title">图4：香港旅客旅游消费构成分析</h2>
+                <div class="chart-wrapper">
+                    <canvas id="expenseChart"></canvas>
+                </div>
+                <div class="chart-legend" id="expenseLegend"></div>
+                <p class="chart-note">购物支出占比最高(30%)，体现香港作为购物天堂的吸引力</p>
+            </div>
+            
+            <!-- 图2：年龄和收入分布 - 特殊布局 -->
+            <div class="chart-card special-chart">
+                <h2 class="chart-title">图2：香港旅客年龄及收入分布</h2>
+                <div class="sub-charts">
+                    <div>
+                        <h3>年龄分布</h3>
+                        <div class="sub-chart-wrapper">
+                            <canvas id="ageChart"></canvas>
+                        </div>
+                        <div class="chart-legend" id="ageLegend"></div>
+                    </div>
+                    <div>
+                        <h3>收入分布</h3>
+                        <div class="sub-chart-wrapper">
+                            <canvas id="incomeChart"></canvas>
+                        </div>
+                        <div class="chart-legend" id="incomeLegend"></div>
+                    </div>
+                </div>
+                <p class="chart-note">31-45岁和中高收入群体是香港旅客的主要消费群体</p>
+            </div>
+        </div>
+        
+        <div class="data-source">
+            <p>数据来源：Hong Kong Tourist Statistics 2022-2025</p>
+        </div>
+    </div>
+
+    <script>
+        // 数据
+        const sourceData = {
+            labels: ['中国内地', '台湾', '东南亚地区', '欧洲', '北美', '其他'],
+            data: [68, 12, 10, 5, 3, 2],
+            colors: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40']
+        };
+        
+        const ageData = {
+            labels: ['18-30岁', '31-45岁', '46-60岁', '60岁以上'],
+            data: [25, 35, 30, 10],
+            colors: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+        };
+        
+        const incomeData = {
+            labels: ['高收入(>5万HKD)', '中高收入(3-5万HKD)', '中等收入(1.5-3万HKD)', '低收入(<1.5万HKD)'],
+            data: [20, 40, 30, 10],
+            colors: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+        };
+        
+        const purposeData = {
+            labels: ['休闲度假', '商务旅行', '探亲访友', '会议展览', '体育旅游', '文化体验'],
+            data: [50, 20, 15, 5, 5, 5],
+            colors: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40']
+        };
+        
+        const expenseData = {
+            labels: ['购物', '餐饮', '住宿', '交通', '娱乐', '景点门票'],
+            data: [30, 25, 20, 10, 10, 5],
+            colors: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40']
+        };
+        
+        // 图1：来源国/地区分布 - 条形图
+        const sourceCtx = document.getElementById('sourceChart').getContext('2d');
+        const sourceChart = new Chart(sourceCtx, {
+            type: 'bar',
+            data: {
+                labels: sourceData.labels,
+                datasets: [{
+                    label: '百分比(%)',
+                    data: sourceData.data,
+                    backgroundColor: sourceData.colors,
+                    borderColor: sourceData.colors.map(color => color.replace('0.8', '1')),
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    borderSkipped: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: '百分比(%)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: '来源国/地区'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // 创建图例
+        function createLegend(containerId, labels, colors) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            labels.forEach((label, index) => {
+                const legendItem = document.createElement('div');
+                legendItem.className = 'legend-item';
+                
+                const colorBox = document.createElement('div');
+                colorBox.className = 'legend-color';
+                colorBox.style.backgroundColor = colors[index];
+                
+                const labelText = document.createElement('span');
+                labelText.textContent = label;
+                
+                legendItem.appendChild(colorBox);
+                legendItem.appendChild(labelText);
+                container.appendChild(legendItem);
+            });
+        }
+        
+        // 图2：年龄分布 - 饼图（模拟3D效果）
+        const ageCtx = document.getElementById('ageChart').getContext('2d');
+        const ageChart = new Chart(ageCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ageData.labels,
+                datasets: [{
+                    data: ageData.data,
+                    backgroundColor: ageData.colors,
+                    borderColor: '#fff',
+                    borderWidth: 2,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                cutout: '50%'
+            }
+        });
+        
+        // 图2：收入分布 - 正态分布图（使用曲线面积图模拟）
+        const incomeCtx = document.getElementById('incomeChart').getContext('2d');
+        // 由于数据是分类的，我们使用条形图来展示
+        const incomeChart = new Chart(incomeCtx, {
+            type: 'bar',
+            data: {
+                labels: incomeData.labels,
+                datasets: [{
+                    label: '百分比(%)',
+                    data: incomeData.data,
+                    backgroundColor: incomeData.colors,
+                    borderColor: incomeData.colors.map(color => color.replace('0.8', '1')),
+                    borderWidth: 1,
+                    borderRadius: 5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // 图3：旅游目的分类 - 细圆环图
+        const purposeCtx = document.getElementById('purposeChart').getContext('2d');
+        const purposeChart = new Chart(purposeCtx, {
+            type: 'doughnut',
+            data: {
+                labels: purposeData.labels,
+                datasets: [{
+                    data: purposeData.data,
+                    backgroundColor: purposeData.colors,
+                    borderColor: '#fff',
+                    borderWidth: 2,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                cutout: '70%' // 细圆环
+            }
+        });
+        
+        // 图4：旅游消费构成 - 粗圆环图
+        const expenseCtx = document.getElementById('expenseChart').getContext('2d');
+        const expenseChart = new Chart(expenseCtx, {
+            type: 'doughnut',
+            data: {
+                labels: expenseData.labels,
+                datasets: [{
+                    data: expenseData.data,
+                    backgroundColor: expenseData.colors,
+                    borderColor: '#fff',
+                    borderWidth: 2,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                cutout: '30%' // 粗圆环
+            }
+        });
+        
+        // 创建所有图例
+        createLegend('sourceLegend', sourceData.labels, sourceData.colors);
+        createLegend('ageLegend', ageData.labels, ageData.colors);
+        createLegend('incomeLegend', incomeData.labels, incomeData.colors);
+        createLegend('purposeLegend', purposeData.labels, purposeData.colors);
+        createLegend('expenseLegend', expenseData.labels, expenseData.colors);
+    </script>
+</body>
+</html>
