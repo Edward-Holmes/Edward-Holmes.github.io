@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>影响者真实性研究 - 表格展示</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #2c3e50, #4a6572);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .controls {
+            padding: 20px;
+            background-color: #eef2f5;
+            border-bottom: 1px solid #dce4ec;
+        }
+        .table-selector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        select {
+            padding: 10px 15px;
+            border: 1px solid #cbd6e2;
+            border-radius: 5px;
+            background-color: white;
+            font-size: 1rem;
+            min-width: 300px;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        .table-container {
+            padding: 30px;
+            min-height: 500px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            text-align: left;
+            padding: 15px;
+            font-weight: 600;
+        }
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eaecef;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:hover {
+            background-color: #f1f7fd;
+        }
+        .table-caption {
+            font-style: italic;
+            margin-bottom: 10px;
+            color: #7f8c8d;
+            text-align: center;
+        }
+        .table-description {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            border-radius: 3px;
+        }
+        .hidden {
+            display: none;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            .table-selector {
+                flex-direction: column;
+            }
+            select {
+                min-width: 100%;
+            }
+            .table-container {
+                padding: 15px;
+            }
+            table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>影响者真实性研究</h1>
+            <p class="subtitle">Barbara Duffek, Andreas B. Eisingerich, Omar Merlo 和 Guan Lee</p>
+            <p class="subtitle">《市场营销杂志》第89卷第5期</p>
+        </header>
+        
+        <div class="controls">
+            <div class="table-selector">
+                <label for="table-select">选择表格：</label>
+                <select id="table-select">
+                    <option value="table1">表1：集合理论概念预示了我们的一些发现</option>
+                    <option value="table2">表2：影响者群体的组成和能力</option>
+                    <option value="table3">表3：影响者真实性的特征及其对利益相关者的不同重要性</option>
+                    <option value="table4">表4：针对影响者真实性各项属性的代表性支持语录</option>
+                    <option value="table5">表5：针对各利益相关方，就各物业造成的错位问题提出的建议</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <!-- 表1 -->
+            <div id="table1" class="table-content">
+                <div class="table-description">
+                    <p>此表格概述了聚集理论的关键概念及其在研究中的应用，这些概念帮助我们理解影响者真实性的动态性质</p>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>概念</th>
+                            <th>定义</th>
+                            <th>示例</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>影响者集合</td>
+                            <td>由包括人类和物体在内的异质部分之间持续互动而形成的整体。</td>
+                            <td>影响者组合是由影响者、消费者、品牌经理、影响者营销机构成员、品牌内容和代言产品之间的互动产生的。</td>
+                        </tr>
+                        <tr>
+                            <td>影响者群体的特征</td>
+                            <td>由组合体中各组成部分之间的相互作用而产生的一组有限的特征。</td>
+                            <td>影响者群体的特征包括影响者的专业性、人脉关系、诚信、原创性和透明度。这五项特征共同构成了影响者群体的特征。这些特征的存在与否决定了影响者的真实性，也是影响者群体最终形成的结果。</td>
+                        </tr>
+                        <tr>
+                            <td>影响者群体的组成部分</td>
+                            <td>在像网红这样的社会群体中，其组成部分包括群体中相互互动的人和事物。</td>
+                            <td>影响者群体由人（消费者、品牌经理、影响者营销机构成员）和物（品牌内容和代言产品）组成，它们通过各自的能力在影响者群体中相互作用。群体内部各组成部分的相互作用可以稳定或破坏群体的属性。</td>
+                        </tr>
+                        <tr>
+                            <td>影响者集合体的能力</td>
+                            <td>组件与其他组件互动的潜力。</td>
+                            <td>为了形成影响者集合体，各个组成部分必须具备相互作用的能力。这些能力可以是物质性的和/或表达性的。例如，作为集合体的一部分，消费者具有与品牌内容进行互动的表达能力。这种与品牌内容的互动可以通过增强“连接性”属性来稳定影响者集合体。每个组成部分的具体能力详见表2。</td>
+                        </tr>
+                        <tr>
+                            <td>影响者集合体中的错位</td>
+                            <td>集合体的各个组成部分对影响者集合体的不同属性赋予不同优先级，从而导致属性重要性上的错位。</td>
+                            <td>当不同组成部分对同一属性赋予不同的优先级时，就会在集合体中产生错位。例如，原创性是影响者高度重视的属性，因为他们希望以自己的叙事风格创作内容。而品牌则对原创性重视程度较低，因为它更倾向于控制而非原创叙事。这就在原创性这一属性上造成了影响者与品牌之间的错位。</td>
+                        </tr>
+                        <tr>
+                            <td>影响者集合体的稳定与不稳定</td>
+                            <td>各组成部分之间的互动可以稳定或破坏影响者集合体的属性，从而影响作为集合体结果的影响者真实性。</td>
+                            <td>例如，如果影响者通过“透明性”这一属性分享真实的使用体验以及代言产品的优缺点，那么影响者集合体就可以被稳定（加强）。如果影响者未能做到这一点，则可能削弱“透明性”属性，从而破坏影响者集合体的真实性。</td>
+                        </tr>
+                        <tr>
+                            <td>影响者集合体的结果</td>
+                            <td>影响者集合体的结果是影响者的“真实性”。</td>
+                            <td>影响者的真实性是影响者集合体通过其属性的稳定化过程所产生的一种结果。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 表2 -->
+            <div id="table2" class="table-content hidden">
+                <div class="table-description">
+                    <p>此表格详细说明了影响者聚集的各种组成部分及其能力，以及这些组成部分之间的错位如何影响聚集的稳定性</p>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>关键组件</th>
+                            <th>核心能力</th>
+                            <th>与关键组件互动以实现其能力的其他组件示例</th>
+                            <th>关键组件与集合体属性之间的错位可稳定或破坏影响者真实性</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        <!-- 消费者 -->
+        <tr>
+            <td><strong>消费者</strong></td>
+            <td>
+                <strong>表达性：</strong><br>
+                • 可通过影响者的品牌内容进行互动<br>
+                • 可与品牌内容互动（分享、关注、点赞、评论）<br><br>
+                <strong>物质性：</strong><br>
+                • 可关注品牌内容中的产品
+            </td>
+            <td>
+                • 消费者通过“表达能力”（分享、关注、点赞、评论）与影响者的品牌内容互动<br>
+                • 消费者通过“物质能力”（关注对象）与品牌产品互动<br>
+                • 消费者通过“表达能力”与影响者建立连接
+            </td>
+            <td>
+                • 缺乏内在动机削弱影响者的<strong>完整性</strong><br>
+                • 真实的产品使用和真诚推荐可稳定<strong>透明性</strong><br>
+                • 与影响者的互动和内容转化可稳定<strong>连接性</strong>
+            </td>
+        </tr>
+
+        <!-- 品牌经理 -->
+        <tr>
+            <td><strong>品牌经理</strong></td>
+            <td>
+                <strong>表达性：</strong><br>
+                • 可撰写由影响者推广的品牌内容<br>
+                • 可指定影响者应推广的产品/品牌<br><br>
+                <strong>物质性：</strong><br>
+                • 可关注用户参与度
+            </td>
+            <td>
+                • 品牌经理通过“表达能力”（雇佣）和“物质能力”（关注内容）与影响者互动<br>
+                • 品牌经理通过“表达能力”（合同）与影响者营销机构互动<br>
+                • 品牌经理通过“表达能力”（撰写内容）和“物质能力”（分配材料）与品牌内容和产品互动
+            </td>
+            <td>
+                • 撰写内容会削弱<strong>原创性</strong><br>
+                • 专业知识优先可稳定<strong>连接性</strong>
+            </td>
+        </tr>
+
+        <!-- 影响者营销机构 -->
+        <tr>
+            <td><strong>影响者营销机构</strong></td>
+            <td>
+                <strong>表达性：</strong><br>
+                • 可为品牌代言撰写内容<br>
+                • 可与品牌方在签约影响者方面互动<br><br>
+                <strong>物质性：</strong><br>
+                • 可关注用户参与度
+            </td>
+            <td>
+                • 影响者营销机构通过“表达能力”（签约）与品牌经理互动<br>
+                • 影响者营销机构通过“表达能力”（撰写内容）和“物质能力”（分配材料）与影响者互动
+            </td>
+            <td>
+                • 撰写内容会削弱<strong>原创性</strong><br>
+                • 专业知识可稳定整个影响者集合体<br>
+                • 连接性（而非参与度）更有利于稳定整个集合体
+            </td>
+        </tr>
+
+        <!-- 品牌内容 -->
+        <tr>
+            <td><strong>品牌内容</strong></td>
+            <td>
+                <strong>表达性：</strong><br>
+                • 可传达品牌信息，从而改善消费者对影响者集合体的态度<br><br>
+                <strong>物质性：</strong><br>
+                • 可提供影响者、品牌与粉丝之间互动的空间
+            </td>
+            <td>
+                • 品牌内容通过“表达能力”（传达意义）与影响者互动<br>
+                • 品牌内容通过“物质能力”（提供互动空间）与粉丝和品牌互动
+            </td>
+            <td>
+                • 撰写内容会削弱<strong>原创性</strong><br>
+                • 品牌内容缺乏内在动机削弱<strong>完整性</strong><br>
+                • 真诚推荐可稳定<strong>透明性</strong>
+            </td>
+        </tr>
+
+        <!-- 产品（对象） -->
+        <tr>
+            <td><strong>产品（对象）</strong></td>
+            <td>
+                <strong>表达性：</strong><br>
+                • 可通过真实使用传达影响者-品牌合作的真实性<br><br>
+                <strong>物质性：</strong><br>
+                • 可体现影响者的真实性（通过真实使用）
+            </td>
+            <td>
+                • 产品通过“表达能力”（真实使用）与影响者互动，传达合作真实性<br>
+                • 产品通过“物质能力”（真实使用）与粉丝互动，传达合作真实性
+            </td>
+            <td>
+                • 真实产品使用可稳定<strong>透明性</strong>
+            </td>
+        </tr>
+
+        <!-- 社交媒体 -->
+        <tr>
+            <td><strong>社交媒体</strong></td>
+            <td>
+                <strong>物质性：</strong><br>
+                • 提供影响者互动的空间<br>
+                • 提供内容分享的空间
+            </td>
+            <td>
+                • 粉丝与影响者互动并建立连接<br>
+                • 品牌经理和影响者营销机构可招募和签约影响者<br>
+                • 影响者发布品牌及非品牌内容
+            </td>
+            <td>
+                • 构建了支持性的生态系统
+            </td>
+        </tr>
+    </tbody>
+                </table>
+            </div>
+            
+            <!-- 表3 -->
+            <div id="table3" class="table-content hidden">
+                <div class="table-description">
+                    <p>此表格展示了影响者真实性的五个关键属性，以及这些属性对不同利益相关者的重要性差异，这导致了聚集中的错位。</p>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>属性</th>
+                            <th>定义</th>
+                            <th>消费者</th>
+                            <th>影响者</th>
+                            <th>品牌经理</th>
+                            <th>影响者营销机构</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>专业知识</td>
+                            <td>影响者在特定领域被视为专家的程度</td>
+                            <td>低优先级</td>
+                            <td>高优先级</td>
+                            <td>中等优先级</td>
+                            <td>高优先级</td>
+                        </tr>
+                        <tr>
+                            <td>连接性</td>
+                            <td>消费者感到与影响者连接和参与的程度</td>
+                            <td>非常高优先级</td>
+                            <td>高优先级</td>
+                            <td>中等优先级</td>
+                            <td>非常高优先级</td>
+                        </tr>
+                        <tr>
+                            <td>完整性</td>
+                            <td>影响者被视为内在动机、不恶意行事且将消费者最大利益放在心上的程度</td>
+                            <td>非常高优先级</td>
+                            <td>低优先级</td>
+                            <td>低优先级</td>
+                            <td>低优先级</td>
+                        </tr>
+                        <tr>
+                            <td>原创性</td>
+                            <td>影响者使用与其自身原创风格和定位一致的故事讲述和分享个人经历的程度</td>
+                            <td>高优先级</td>
+                            <td>高优先级</td>
+                            <td>低优先级</td>
+                            <td>中等优先级</td>
+                        </tr>
+                        <tr>
+                            <td>透明度</td>
+                            <td>影响者以平衡和开放的方式沟通的程度</td>
+                            <td>非常高优先级</td>
+                            <td>高优先级</td>
+                            <td>低优先级</td>
+                            <td>低优先级</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 表4 -->
+            <div id="table4" class="table-content hidden">
+                <div class="table-description">
+                    <p>此表格提供了来自访谈的引语，展示了不同利益相关者对影响者真实性各个属性的看法（节选）</p>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>影响者真实性的属性</th>
+                            <th>所有利益相关者的代表性支持性引言</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>专业知识</td>
+                            <td>"你应该在你所做的事情上有多年经验。因为有些影响者以前从未做过[某事]，突然之间，他们似乎是专家。拥有多年经验会增加可信度。"</td>
+                        </tr>
+                        <tr>
+                            <td>连接性</td>
+                            <td>"真实并不意味着专业，严格来说。某人可能是真实的，说'嘿，我来这里向你展示我如何化妆，你知道，我自己也在学习，让我们一起学习。'这非常真实。"</td>
+                        </tr>
+                        <tr>
+                            <td>完整性</td>
+                            <td>"我们都有账单要付。当我与品牌合作时，我什么时候仍然感觉像自己？他们[品牌]可能有自己的愿望。当我经常想尝试其他东西时。有一种危险，感觉这一切都像卖淫。"</td>
+                        </tr>
+                        <tr>
+                            <td>原创性</td>
+                            <td>"你的面孔有保质期。你开始作为一个个性，挑战是让你的个性变得有趣，无论你进入生活的哪个阶段，因为一旦人们不再对你感兴趣，协同作用[影响者和品牌之间]消失，你就会被取代。"</td>
+                        </tr>
+                        <tr>
+                            <td>透明度</td>
+                            <td>"通常，如果影响者尝试了产品，比如三个月，并可以向我展示前后对比以证明效果，那么我肯定更倾向于购买，因为我可以看到比较，并且这个人已经尝试过。"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 表5 -->
+            <div id="table5" class="table-content hidden">
+                <div class="table-description">
+                    <p>此表格为每个利益相关者提供了具体建议，帮助他们应对由不同属性引起的错位，从而建立和维持影响者真实性。</p>
+                </div>
+                <table>
+    <thead>
+        <tr>
+            <th>属性（Property）</th>
+            <th>影响者（Influencer）</th>
+            <th>品牌经理（Brand Manager）</th>
+            <th>影响者营销机构（Influencer Marketing Agency）</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <!-- 专业性 -->
+        <tr>
+            <td class="property">专业性（Expertise）</td>
+            <td>
+                <ul>
+                    <li>在内容创作上保持一致性，而非追求专业性</li>
+                    <li>围绕特定领域（如美容）建立个人品牌，而非泛泛而谈</li>
+                    <li>分享领域外的内容时，需有充分的专业知识支撑</li>
+                    <li>与其他组件（如品牌、消费者）互动时，应强化专业知识以提升真实性</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>将影响者与品牌经理之间的错位视为内容创作的一致性问题</li>
+                    <li>选择内容可靠、能体现专业性的创作者</li>
+                    <li>欣赏创作者如何通过专业性增强其内容的真实性</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>寻找在特定话题上持续创作优质内容的影响者</li>
+                    <li>寻找具有正式资质或专家身份的影响者</li>
+                </ul>
+            </td>
+        </tr>
+
+        <!-- 连接性 -->
+        <tr>
+            <td class="property">连接性（Connectedness）</td>
+            <td>
+                <ul>
+                    <li>寻找不仅拥有高分享率和互动率，还能主动与受众互动的影响者（如回复评论、举办问答活动）</li>
+                    <li>定期举办问答会和直播活动，建立双向沟通</li>
+                    <li>在选择品牌合作时保持选择性，只与价值观一致的品牌合作</li>
+                    <li>在赞助内容中始终传达品牌价值</li>
+                    <li>对品牌合作保持坦诚，不接受某些品牌，除非了解其财务动机</li>
+                    <li>从透明机会中受益，如果集合体属性存在错位</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>避免选择仅因粉丝多而合作的影响者</li>
+                    <li>优先选择与品牌价值观契合的影响者</li>
+                    <li>分析披露实践（如#sponsored标签）的清晰度和频率</li>
+                    <li>利用影响者的“机会主义”行为来增强品牌真实性</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>帮助品牌经理和影响者协商“原创性”问题（解释为何脚本化内容很重要）</li>
+                    <li>评估影响者在品牌内容中使用个人叙事风格的程度</li>
+                    <li>坚持影响者偏好的内容风格</li>
+                </ul>
+            </td>
+        </tr>
+
+        <!-- 完整性 -->
+        <tr>
+            <td class="property">完整性（Integrity）</td>
+            <td>
+                <ul>
+                    <li>开发并维护原创叙事风格</li>
+                    <li>不只是重复品牌信息，而是分享个人故事</li>
+                    <li>确保影响者了解你所推广的产品，而非仅靠个人片段</li>
+                    <li>在内容制作中融入新趋势（如AI生成内容）</li>
+                    <li>在与品牌合作前，不分享品牌元素，以展示转化过程</li>
+                    <li>在客户决定是否参与转化过程前，提供证据支持</li>
+                    <li>根据产品生产节奏，灵活调整合作频率（每日/每周）</li>
+                    <li>与品牌合作时，分享真实且真诚的推荐</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>允许影响者分享个人经历，涉及品牌</li>
+                    <li>允许影响者使用个人叙事风格推广品牌内容</li>
+                    <li>确保影响者了解品牌价值，并与之对齐</li>
+                    <li>创建并传达品牌指南，鼓励真实推荐</li>
+                    <li>帮助影响者以诚实方式表达产品信息，避免隐藏负面信息</li>
+                    <li>若影响者代言全新产品，确保他们有机会试用后再合作</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>帮助品牌经理和影响者协商“原创性”问题</li>
+                    <li>评估影响者在品牌内容中使用个人叙事风格的程度</li>
+                    <li>坚持影响者偏好的内容风格</li>
+                </ul>
+            </td>
+        </tr>
+
+        <!-- 原创性 -->
+        <tr>
+            <td class="property">原创性（Originality）</td>
+            <td>
+                <ul>
+                    <li>开发并维护原创叙事风格</li>
+                    <li>不只是重复品牌信息，而是分享个人故事</li>
+                    <li>确保影响者了解你所推广的产品，而非仅靠个人片段</li>
+                    <li>在内容制作中融入新趋势（如AI生成内容）</li>
+                    <li>在与品牌合作前，不分享品牌元素，以展示转化过程</li>
+                    <li>在客户决定是否参与转化过程前，提供证据支持</li>
+                    <li>根据产品生产节奏，灵活调整合作频率（每日/每周）</li>
+                    <li>与品牌合作时，分享真实且真诚的推荐</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>允许影响者分享个人经历，涉及品牌</li>
+                    <li>允许影响者使用个人叙事风格推广品牌内容</li>
+                    <li>确保影响者了解品牌价值，并与之对齐</li>
+                    <li>创建并传达品牌指南，鼓励真实推荐</li>
+                    <li>帮助影响者以诚实方式表达产品信息，避免隐藏负面信息</li>
+                    <li>若影响者代言全新产品，确保他们有机会试用后再合作</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>帮助品牌经理和影响者协商“原创性”问题</li>
+                    <li>评估影响者在品牌内容中使用个人叙事风格的程度</li>
+                    <li>坚持影响者偏好的内容风格</li>
+                </ul>
+            </td>
+        </tr>
+
+        <!-- 透明性 -->
+        <tr>
+            <td class="property">透明性（Transparency）</td>
+            <td>
+                <ul>
+                    <li>在与品牌合作前，不分享品牌元素，以展示转化过程</li>
+                    <li>在客户决定是否参与转化过程前，提供证据支持</li>
+                    <li>根据产品生产节奏，灵活调整合作频率（每日/每周）</li>
+                    <li>与品牌合作时，分享真实且真诚的推荐</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>创建并传达品牌指南，鼓励真实推荐</li>
+                    <li>帮助影响者以诚实方式表达产品信息，避免隐藏负面信息</li>
+                    <li>若影响者代言全新产品，确保他们有机会试用后再合作</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>帮助品牌经理和影响者协商“原创性”问题</li>
+                    <li>评估影响者在品牌内容中使用个人叙事风格的程度</li>
+                    <li>坚持影响者偏好的内容风格</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 影响者真实性研究 | 数据来源：Journal of Marketing 89(5)</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tableSelect = document.getElementById('table-select');
+            const tableContents = document.querySelectorAll('.table-content');
+            
+            // 显示第一个表格
+            tableContents[0].classList.remove('hidden');
+            
+            // 当下拉菜单值改变时切换表格
+            tableSelect.addEventListener('change', function() {
+                // 隐藏所有表格
+                tableContents.forEach(table => {
+                    table.classList.add('hidden');
+                });
+                
+                // 显示选中的表格
+                const selectedTable = document.getElementById(this.value);
+                if (selectedTable) {
+                    selectedTable.classList.remove('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
