@@ -153,6 +153,8 @@
             <div class="table-selector">
                 <label for="table-select">选择表格：</label>
                 <select id="table-select">
+                    <option value="table-doc1">文档1：研究方法对比</option>
+                    <option value="table-doc2">文档2：实验设计框架</option>
                     <option value="table1">表1：集合理论概念预示了我们的一些发现</option>
                     <option value="table2">表2：影响者群体的组成和能力</option>
                     <option value="table3">表3：影响者真实性的特征及其对利益相关者的不同重要性</option>
@@ -163,6 +165,286 @@
         </div>
         
         <div class="table-container">
+            <!-- 文档1 -->
+            <div id="table-doc1" class="table-content">
+                <div class="table-description">
+                    <p>此文档概述了不同研究方法的对比分析</p>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>研究方法</th>
+                            <th>定义</th>
+                            <th>适用场景</th>
+                            <th>优缺点</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>定性研究</td>
+                            <td>通过非数值化数据理解现象，如访谈、观察</td>
+                            <td>探索性研究、理解深层动机</td>
+                            <td>优点：深入理解；缺点：主观性强</td>
+                        </tr>
+                        <tr>
+                            <td>定量研究</td>
+                            <td>通过数值化数据测量和分析现象</td>
+                            <td>验证假设、大规模调查</td>
+                            <td>优点：客观性强；缺点：可能忽略背景</td>
+                        </tr>
+                        <tr>
+                            <td>混合方法</td>
+                            <td>结合定性和定量方法</td>
+                            <td>复杂问题研究、多角度分析</td>
+                            <td>优点：全面视角；缺点：耗时耗力</td>
+                        </tr>
+                        <tr>
+                            <td>案例研究</td>
+                            <td>深入分析特定案例</td>
+                            <td>理解特定情境下的现象</td>
+                            <td>优点：详细深入；缺点：难以推广</td>
+                        </tr>
+                        <tr>
+                            <td>实验研究</td>
+                            <td>通过控制变量测试因果关系</td>
+                            <td>验证因果关系</td>
+                            <td>优点：因果关系明确；缺点：人工环境</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 文档2 -->
+            <div id="table-doc2" class="table-content hidden">
+                <div class="table-description">
+                    <p>此文档详细介绍了实验设计的逻辑框架、控制技术和前沿方法</p>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>部分</th>
+                            <th>内容</th>
+                            <th>详细说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>一、总览:实验设计的逻辑框架</td>
+                            <td>实验研究的核心思想</td>
+                            <td>通过控制与操控自变量,观察其对因变量的影响,从而推断因果关系</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="15">实验主要类型</td>
+                            <td>组间设计(Between-Subjects Design)</td>
+                            <td>不同组接受不同处理</td>
+                        </tr>
+                        <tr>
+                            <td>组内设计(Within-Subjects Design)</td>
+                            <td>同一组接受所有处理</td>
+                        </tr>
+                        <tr>
+                            <td>混合设计(Mixed Design)</td>
+                            <td>结合组间和组内设计</td>
+                        </tr>
+                        <tr>
+                            <td>准实验设计(Quasi-Experimental Design)</td>
+                            <td>缺乏随机分配</td>
+                        </tr>
+                        <tr>
+                            <td>自然实验(Natural Experiment)</td>
+                            <td>利用自然发生的事件</td>
+                        </tr>
+                        <tr>
+                            <td>现场实验(Field Experiment)</td>
+                            <td>在自然环境中进行</td>
+                        </tr>
+                        <tr>
+                            <td>单被试设计(Single-Subject Design)</td>
+                            <td>针对单个被试的深入研究</td>
+                        </tr>
+                        <tr>
+                            <td>时间序列实验(Time-Series Design)</td>
+                            <td>在多个时间点测量</td>
+                        </tr>
+                        <tr>
+                            <td>交叉设计(Crossover Design)</td>
+                            <td>被试在不同时间接受不同处理</td>
+                        </tr>
+                        <tr>
+                            <td>因子设计(Factorial Design)</td>
+                            <td>同时研究多个自变量</td>
+                        </tr>
+                        <tr>
+                            <td>拉丁方设计(Latin Square Design)</td>
+                            <td>控制顺序效应</td>
+                        </tr>
+                        <tr>
+                            <td>嵌套设计(Nested Design)</td>
+                            <td>处理因素嵌套在另一因素中</td>
+                        </tr>
+                        <tr>
+                            <td>平衡设计(Counterbalanced Design)</td>
+                            <td>平衡处理顺序</td>
+                        </tr>
+                        <tr>
+                            <td>虚拟实验(Virtual Experiment)</td>
+                            <td>在虚拟环境中进行</td>
+                        </tr>
+                        <tr>
+                            <td>模拟实验(Simulation Experiment)</td>
+                            <td>通过模拟进行研究</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><strong>二、实验中的控制技术(Control Techniques)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>控制目标</td>
+                            <td>技术方法</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>控制个体差异</td>
+                            <td>随机分组、匹配法</td>
+                            <td>确保各组在实验前具有可比性</td>
+                        </tr>
+                        <tr>
+                            <td>控制环境变量</td>
+                            <td>实验室控制、平衡设计</td>
+                            <td>减少外部因素干扰</td>
+                        </tr>
+                        <tr>
+                            <td>控制顺序效应</td>
+                            <td>Counterbalancing</td>
+                            <td>平衡处理顺序的影响</td>
+                        </tr>
+                        <tr>
+                            <td>控制偏差</td>
+                            <td>双盲设计、操控检验(Manipulation Check)</td>
+                            <td>减少实验者期望效应</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><strong>现代前沿研究方法(Emerging Approaches)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>计算社会科学</td>
+                            <td>使用Python、R等进行社交媒体数据分析、网络建模</td>
+                            <td>大数据分析方法</td>
+                        </tr>
+                        <tr>
+                            <td>自然实验</td>
+                            <td>研究者利用自然发生的事件，如政策变化、疫情冲击</td>
+                            <td>利用现实世界事件进行研究</td>
+                        </tr>
+                        <tr>
+                            <td>田野随机实验</td>
+                            <td>被广泛应用于经济学(如Banerjee&Duflo)</td>
+                            <td>在真实环境中进行随机实验</td>
+                        </tr>
+                        <tr>
+                            <td>多模态研究</td>
+                            <td>同时采集文字、图像、生理数据</td>
+                            <td>多维度数据采集</td>
+                        </tr>
+                        <tr>
+                            <td>混合现实实验</td>
+                            <td>将VR/AR技术嵌入实验设计</td>
+                            <td>利用虚拟现实技术</td>
+                        </tr>
+                        <tr>
+                            <td>AI驱动研究</td>
+                            <td>使用ChatGPT或AI分析语料、生成假设、辅助建模</td>
+                            <td>人工智能辅助研究</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><strong>三、学科应用对照表(Cross-field Reference)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>心理学</td>
+                            <td>实验、问卷、访谈、反应时测量</td>
+                            <td>研究心理过程和行为</td>
+                        </tr>
+                        <tr>
+                            <td>教育学</td>
+                            <td>行动研究、案例研究、测评研究</td>
+                            <td>研究教育过程和效果</td>
+                        </tr>
+                        <tr>
+                            <td>管理学</td>
+                            <td>调查研究、实验、扎根理论</td>
+                            <td>研究组织和管理问题</td>
+                        </tr>
+                        <tr>
+                            <td>社会学</td>
+                            <td>民族志、访谈、统计模型</td>
+                            <td>研究社会结构和过程</td>
+                        </tr>
+                        <tr>
+                            <td>传播学</td>
+                            <td>内容分析、话语分析、实验</td>
+                            <td>研究信息传播过程</td>
+                        </tr>
+                        <tr>
+                            <td>医学</td>
+                            <td>临床试验(RCT)、队列研究</td>
+                            <td>研究疾病和治疗效果</td>
+                        </tr>
+                        <tr>
+                            <td>经济学</td>
+                            <td>自然实验、实验经济学、计量分析</td>
+                            <td>研究经济行为和现象</td>
+                        </tr>
+                        <tr>
+                            <td>政治学</td>
+                            <td>比较研究、政策实验、回归不连续设计(RDD)</td>
+                            <td>研究政治行为和制度</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><strong>四、跨学科结果分析实例对照表</strong></td>
+                        </tr>
+                        <tr>
+                            <td>领域</td>
+                            <td>分析方法</td>
+                            <td>结果形式</td>
+                        </tr>
+                        <tr>
+                            <td>心理学</td>
+                            <td>t检验、回归、主题分析</td>
+                            <td>统计显著性+理论解释</td>
+                        </tr>
+                        <tr>
+                            <td>教育学</td>
+                            <td>前后测+访谈分析</td>
+                            <td>分数提升+动机变化</td>
+                        </tr>
+                        <tr>
+                            <td>管理学</td>
+                            <td>结构方程模型</td>
+                            <td>因果模型图</td>
+                        </tr>
+                        <tr>
+                            <td>传播学</td>
+                            <td>内容分析+话语分析</td>
+                            <td>媒体框架模型</td>
+                        </tr>
+                        <tr>
+                            <td>社会学</td>
+                            <td>案例比较+扎根理论</td>
+                            <td>模式模型</td>
+                        </tr>
+                        <tr>
+                            <td>市场营销</td>
+                            <td>A/B测试+聚类分析</td>
+                            <td>用户细分与偏好</td>
+                        </tr>
+                        <tr>
+                            <td>医学</td>
+                            <td>实验对照+时间序列</td>
+                            <td>疗效曲线与生理指标</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
             <!-- 表1 -->
             <div id="table1" class="table-content">
                 <div class="table-description">
