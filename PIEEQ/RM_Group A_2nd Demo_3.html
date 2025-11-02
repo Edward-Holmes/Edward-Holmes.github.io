@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>影响者真实性研究 - 表格展示</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #2c3e50, #4a6572);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .controls {
+            padding: 20px;
+            background-color: #eef2f5;
+            border-bottom: 1px solid #dce4ec;
+        }
+        .table-selector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        select {
+            padding: 10px 15px;
+            border: 1px solid #cbd6e2;
+            border-radius: 5px;
+            background-color: white;
+            font-size: 1rem;
+            min-width: 300px;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        .table-container {
+            padding: 30px;
+            min-height: 500px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            text-align: left;
+            padding: 15px;
+            font-weight: 600;
+        }
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eaecef;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:hover {
+            background-color: #f1f7fd;
+        }
+        .table-caption {
+            font-style: italic;
+            margin-bottom: 10px;
+            color: #7f8c8d;
+            text-align: center;
+        }
+        .table-description {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            border-radius: 3px;
+        }
+        .hidden {
+            display: none;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 20px;
+        }
+        .dimension-title {
+            font-weight: bold;
+            color: #2c3e50;
+            background-color: #eef2f7;
+        }
+        .reverse-item {
+            color: #e74c3c;
+            font-style: italic;
+        }
+        @media (max-width: 768px) {
+            .table-selector {
+                flex-direction: column;
+            }
+            select {
+                min-width: 100%;
+            }
+            .table-container {
+                padding: 15px;
+            }
+            table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>影响者真实性研究</h1>
+            <p class="subtitle">Barbara Duffek, Andreas B. Eisingerich, Omar Merlo 和 Guan Lee</p>
+            <p class="subtitle">《市场营销杂志》第89卷第5期</p>
+        </header>
+        
+        <div class="controls">
+            <div class="table-selector">
+                <label for="table-select">选择表格：</label>
+                <select id="table-select">
+                    <option value="table-doc1">五要素（Properties）</option>
+                    <option value="table-doc2">总体真实性与结果变量</option>
+                    <option value="table-doc3">新构念（破坏相关）</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <!-- 文档1：五要素（Properties） -->
+            <div id="table-doc1" class="table-content">
+                <div class="table-description">
+                    <p>此表格展示了影响者真实性的五个关键维度及其对应的测量题项。每个维度包含3个题项，采用7点量表（1=非常不同意 … 7=非常同意）进行测量。</p>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>维度</th>
+                            <th>题项编号</th>
+                            <th>题项内容</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="dimension-title" rowspan="3">专业性（Expertise）</td>
+                            <td>E1</td>
+                            <td>他/她讲述内容有依据、有逻辑</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>E2</td>
+                            <td>他/她懂行，能说明适用与不适用的情况</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>E3</td>
+                            <td>他/她表达了方法/过程/边界条件</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="dimension-title" rowspan="3">连接性（Connectedness）</td>
+                            <td>C1</td>
+                            <td>我感到他/她理解像我这样的人</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>C2</td>
+                            <td>我愿意与他/她互动（评论、私信或继续关注）</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>C3</td>
+                            <td>看完后我对他/她产生了更强的好感</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="dimension-title" rowspan="3">原创性（Originality）</td>
+                            <td>O1</td>
+                            <td>这条内容呈现出鲜明的个人风格</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="reverse-item">O2</td>
+                            <td class="reverse-item">它不像是为了卖货而写的统一脚本</td>
+                            <td class="reverse-item">反向编码</td>
+                        </tr>
+                        <tr>
+                            <td>O3</td>
+                            <td>叙事/镜头有新意，不模板</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="dimension-title" rowspan="4">透明性（Transparency）</td>
+                            <td>T1</td>
+                            <td>我清楚他/她与品牌的合作关系</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>T2</td>
+                            <td>视频同时呈现了优点与不足</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>T3</td>
+                            <td>我能看到真实的使用/测试过程而非只看结果</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="reverse-item">T_overload</td>
+                            <td class="reverse-item">我觉得信息过多/分散，导致难以判断</td>
+                            <td class="reverse-item">仅作探索，反向编码</td>
+                        </tr>
+                        <tr>
+                            <td class="dimension-title" rowspan="3">正直性（Integrity）</td>
+                            <td>I1</td>
+                            <td>我感觉他/她把消费者利益放在前面</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>I2</td>
+                            <td>他/她不会为赚钱而夸大</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>I3</td>
+                            <td>即使不适合我，他/她也会明确劝退</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="text-align: center; background-color: #f8f9fa; font-style: italic;">
+                                <strong>计算方式：</strong> 每个维度取均值，<strong>二阶真实性（Authenticity）</strong>可用五维平均或作为二阶潜变量在SEM中建模
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 文档2：总体真实性与结果变量 -->
+            <div id="table-doc2" class="table-content hidden">
+                <div class="table-description">
+                    <p>此表格展示了总体真实性及其相关结果变量的测量题项。所有题项采用7点量表（1=非常不同意 … 7=非常同意）进行测量。</p>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>构念</th>
+                            <th>题项编号</th>
+                            <th>题项内容</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="dimension-title" rowspan="3">总体真实性（Overall Authenticity）</td>
+                            <td>A1</td>
+                            <td>这条内容让我感觉真实可信</td>
+                        </tr>
+                        <tr>
+                            <td>A2</td>
+                            <td>我相信这位创作者做自己</td>
+                        </tr>
+                        <tr>
+                            <td>A3</td>
+                            <td>这更像是真实分享而非广告</td>
+                        </tr>
+                        <tr>
+                            <td class="dimension-title" rowspan="3">信任（Trust）</td>
+                            <td>Tst1</td>
+                            <td>我信任这位创作者的观点</td>
+                        </tr>
+                        <tr>
+                            <td>Tst2</td>
+                            <td>我愿意在未来继续相信他/她的推荐</td>
+                        </tr>
+                        <tr>
+                            <td>Tst3</td>
+                            <td>他/她的推荐对我可信</td>
+                        </tr>
+                        <tr>
+                            <td class="dimension-title" rowspan="2">购买意向（Purchase Intention）</td>
+                            <td>PI1</td>
+                            <td>我愿意考虑购买该产品</td>
+                        </tr>
+                        <tr>
+                            <td>PI2</td>
+                            <td>我会把它加入购买清单/收藏</td>
+                        </tr>
+                        <tr>
+                            <td class="dimension-title" rowspan="2">口碑意向（eWOM）</td>
+                            <td>WOM1</td>
+                            <td>我愿意向朋友正面推荐这条内容/产品</td>
+                        </tr>
+                        <tr>
+                            <td>WOM2</td>
+                            <td>我会在社交平台积极评价/转发</td>
+                        </tr>
+                        <tr>
+                            <td class="dimension-title" rowspan="2">留存意向（Retention/Follow）</td>
+                            <td>RET1</td>
+                            <td>我会继续关注这位创作者</td>
+                        </tr>
+                        <tr>
+                            <td>RET2</td>
+                            <td>我愿意再次观看他/她的内容</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 文档3：新构念（破坏相关） -->
+            <div id="table-doc3" class="table-content hidden">
+                <div class="table-description">
+                    <p>此表格展示了与真实性相关的破坏性构念及其测量题项。所有题项采用7点量表（1=非常不同意 … 7=非常同意）进行测量。</p>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>构念</th>
+                            <th>题项编号</th>
+                            <th>题项内容</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="dimension-title" rowspan="3">真实性疲劳（Authenticity Fatigue, AF）</td>
+                            <td>AF1</td>
+                            <td>我感到最近被各种"真实"内容轰炸</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>AF2</td>
+                            <td>我对所谓"真实分享"感到疲惫与厌烦</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>AF3</td>
+                            <td>我开始不信"越真实越可信"的说法</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="dimension-title" rowspan="3">防御性信任（Defensive Trust Index, DTI）</td>
+                            <td>DTI1</td>
+                            <td>我需要更多证据才会相信这条内容</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>DTI2</td>
+                            <td>没有额外信息，我倾向于保持怀疑</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>DTI3</td>
+                            <td>我会在购买前做更多独立检索</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="text-align: center; background-color: #f8f9fa; font-style: italic;">
+                                <strong>所有题项：</strong> 1=非常不同意 … 7=非常同意。反向题已特别标注
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 影响者真实性研究 | 数据来源：Journal of Marketing 89(5)</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tableSelect = document.getElementById('table-select');
+            const tableContents = document.querySelectorAll('.table-content');
+            
+            // 显示第一个表格
+            tableContents[0].classList.remove('hidden');
+            
+            // 当下拉菜单值改变时切换表格
+            tableSelect.addEventListener('change', function() {
+                // 隐藏所有表格
+                tableContents.forEach(table => {
+                    table.classList.add('hidden');
+                });
+                
+                // 显示选中的表格
+                const selectedTable = document.getElementById(this.value);
+                if (selectedTable) {
+                    selectedTable.classList.remove('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
