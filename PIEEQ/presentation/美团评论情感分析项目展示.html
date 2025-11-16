@@ -45,6 +45,28 @@
             margin-right: 20px;
         }
         
+        /* 添加二维码样式 */
+        .qrcode-section {
+            display: flex;
+            align-items: center;
+        }
+        
+        .qrcode {
+            width: 100px;
+            height: 100px;
+            margin-left: 20px;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .qrcode-caption {
+            font-size: 0.8rem;
+            color: #333;
+            margin-top: 5px;
+            text-align: center;
+        }
+        
         h1 {
             font-size: 2.2rem;
             color: #333;
@@ -231,21 +253,27 @@
             margin-top: 30px;
         }
         
+        /* 导航按钮样式 - 响应式修改 */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
             margin-top: 30px;
+            flex-wrap: wrap; /* 允许换行 */
+            gap: 10px; /* 添加间距 */
         }
         
         .nav-button {
             background-color: #ff9900;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 15px; /* 调整内边距，适应小屏幕 */
             border-radius: 5px;
             cursor: pointer;
             font-size: 1rem;
             transition: background-color 0.3s;
+            flex: 1; /* 让按钮平均分配空间 */
+            min-width: 60px; /* 设置最小宽度 */
+            text-align: center;
         }
         
         .nav-button:hover {
@@ -349,6 +377,12 @@
                 margin-bottom: 15px;
             }
             
+            /* 移动端调整二维码样式 */
+            .qrcode-section {
+                margin-top: 15px;
+                justify-content: center;
+            }
+            
             .model-table {
                 display: block;
                 overflow-x: auto;
@@ -368,6 +402,31 @@
                 height: 80px;
                 font-size: 1.5rem;
             }
+            
+            /* 响应式导航按钮 */
+            .nav-buttons {
+                justify-content: center; /* 居中对齐 */
+            }
+            
+            .nav-button {
+                flex: 0 0 calc(25% - 10px); /* 每行4个按钮 */
+                font-size: 0.9rem; /* 缩小字体 */
+                padding: 8px 5px; /* 调整内边距 */
+            }
+        }
+        
+        /* 针对更小的屏幕 */
+        @media (max-width: 480px) {
+            .nav-button {
+                flex: 0 0 calc(33.333% - 10px); /* 每行3个按钮 */
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .nav-button {
+                flex: 0 0 calc(50% - 10px); /* 每行2个按钮 */
+            }
         }
     </style>
 </head>
@@ -377,6 +436,12 @@
             <div class="logo-section">
                 <img src="./logo.png" alt="美团Logo" class="meituan-logo">
                 <h1>评论情感分析项目展示</h1>
+            </div>
+            <!-- 添加二维码区域 -->
+            <div class="qrcode-section">
+                <div>
+                    <img src="./QR.png" alt="项目二维码" class="qrcode">
+                </div>
             </div>
         </header>
         
@@ -436,7 +501,7 @@
                 <div class="content-box">
                     <h3>为什么要进行多维度用户量化分析？</h3>
                     <p>用户体验是多维度的，必须将主观评价结构化<span class="highlight">（Structuring）</span>才能用于商业决策</p>
-                    <p>形成标准化店铺体验画像、建立可量化、可比较、可复用的 KPI 框架/p>
+                    <p>形成标准化店铺体验画像、建立可量化、可比较、可复用的 KPI 框架</p>
                     <p>通过多维度量化，捕捉用户对不同服务环节的真实感受，帮助商家精准改进，提升整体服务质量</p>
                 </div>
 
