@@ -101,7 +101,7 @@
         
         .image-placeholder {
             background-color: #f5f5f5;
-            height: 600px;
+            height: auto;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -111,7 +111,7 @@
             color: #888;
             font-style: italic;
         }
-        
+
         .image-caption {
             text-align: center;
             font-size: 0.9rem;
@@ -172,17 +172,6 @@
             margin: 0 auto 15px;
             font-weight: bold;
             font-size: 1.2rem;
-        }
-        
-        .step:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            top: 20px;
-            right: 0;
-            width: calc(100% - 40px);
-            height: 2px;
-            background-color: #ff9900;
-            margin-right: -50%;
         }
         
         /* 修改：模型比较表格样式 */
@@ -270,6 +259,72 @@
             color: #666;
         }
         
+        /* 第8页艺术字样式 */
+        .thank-you-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+        
+        .artistic-text {
+            font-size: 5rem;
+            font-weight: bold;
+            color: #ff9900;
+            text-shadow: 3px 3px 0 #ffd700, 6px 6px 0 rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            line-height: 1.2;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .artistic-text::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ffd700, #ff9900, #ffd700);
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.5;
+            border-radius: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #666;
+            margin-top: 1rem;
+        }
+        
+        .decoration {
+            width: 100px;
+            height: 100px;
+            margin: 2rem auto;
+            background: linear-gradient(45deg, #ff9900, #ffd700);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(255, 153, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
             .content-grid {
@@ -298,6 +353,21 @@
                 display: block;
                 overflow-x: auto;
             }
+            
+            /* 响应式艺术字 */
+            .artistic-text {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .decoration {
+                width: 80px;
+                height: 80px;
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -316,7 +386,7 @@
             <p>研究发现，美团平台存在"评论与评分不一致"现象：部分用户一边给予差评文字，一边打出高分星级评价，导致平台真实星级评分存在虚高问题。</p>
             
             <div class="image-placeholder">
-                <img src="./logo.png">
+                <img src="./评论.png" style="max-width: 100%; max-height: 100%;">
             </div>
             <p class="image-caption">图1：用户差评文字与高星评分对比示例</p>
             
@@ -325,12 +395,7 @@
                 <p>针对美团平台存在的"评论与评分不一致"问题，我们开发了此项目。通过大语言模型情感分析，外加多算法融合的AI不确定性建模，构建更准确的餐厅评级系统，为商家和消费者提供真实可靠的参考。</p>
             </div>
             
-            <div class="image-placeholder">
-                插图2：项目架构示意图
-            </div>
-            <p class="image-caption">图2：项目整体架构与技术路线图</p>
-            
-            <div class="page-counter">第1页/共7页</div>
+            <div class="page-counter">第1页/共8页</div>
             <div class="nav-buttons">
                 <button class="nav-button" onclick="prevPage()">上一页</button>
                 <button class="nav-button" onclick="showPage(1)">1</button>
@@ -340,42 +405,89 @@
                 <button class="nav-button" onclick="showPage(5)">5</button>
                 <button class="nav-button" onclick="showPage(6)">6</button>
                 <button class="nav-button" onclick="showPage(7)">7</button>
+                <button class="nav-button" onclick="showPage(8)">8</button>
                 <button class="nav-button" onclick="nextPage()">下一页</button>
             </div>
         </div>
         
         <!-- 第2页：商务分析方法 -->
         <div id="page2" class="page" style="display:none;">
-            <h2>二、商务分析方法</h2>
+            <h2>二、本项目所用商务分析方法</h2>
             
             <div class="content-grid">
                 <div class="content-box">
                     <h3>1. 数据收集与用户声音分析</h3>
                     <p>通过爬取美团公开评论获取用户需求与感知，运用<span class="highlight">用户声音分析(VoC)</span>和文本数据分析方法。</p>
+                    <p>通过Python爬虫技术，从美团平台爬取<span class="highlight">1800家店铺</span>的<span class="highlight">52万余条评论数据</span>，覆盖全国主要一线城市</p>
+                    <p>数据清洗步骤: 去除HTML标签 → 处理特殊字符 → 过滤无效评论 → 处理缺失值 → 时间戳转为标准格式</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>为什么需要数据收集与用户声音分析？</h3>
+                    <p>单看评分无法呈现真实体验，需要从评论文本本身提取真实满意度。通过用户声音分析，挖掘评论中的真实情感与需求，构建更科学的评价体系。</p>
                 </div>
                 
                 <div class="content-box">
-                    <h3>2. 多维度用户满意度分析</h3>
-                    <p>对评论进行多维度量化（口味、服务、配送），构建<span class="highlight">指标体系(KPI)</span>，将主观评价转为可量化指标。</p>
+                    <h3>2. 多维度用户量化分析</h3>
+                    <p>使用Qwen-Max模型对评论进行多维度量化（口味、服务、配送），构建<span class="highlight">指标体系(KPI)</span>，将主观评价转为可量化指标。</p>
+                    <p>调用25个阿里云API并行分析，总耗时近26小时</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>为什么要进行多维度用户量化分析？</h3>
+                    <p>用户体验是多维度的，必须将主观评价结构化<span class="highlight">（Structuring）</span>才能用于商业决策</p>
+                    <p>形成标准化店铺体验画像、建立可量化、可比较、可复用的 KPI 框架/p>
+                    <p>通过多维度量化，捕捉用户对不同服务环节的真实感受，帮助商家精准改进，提升整体服务质量</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>3. EMA时间加权计算</h3>
+                    <p>计算三个维度的指数移动平均值，<span class="highlight">时间衰减因子α=0.2</span></p>
+                    <p>EMA计算: 三个量化标准的时间加权平均</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>为什么要用EMA时间加权计算？</h3>
+                    <p>强调近期评论重要性</p>
                 </div>
                 
                 <div class="content-box">
-                    <h3>3. AI不确定性建模与预测</h3>
-                    <p>运用<span class="highlight">敏感性分析、预测建模和风险概率分析</span>，处理不确定性并对结果可信度进行评估。</p>
+                    <h3>4. AI不确定性建模</h3>
+                    <p>构建1500个训练样本和300个测试样本，特征为<span class="highlight">口味、服务、配送三维EMA值</span></p>
+                    <p>三种机器学习模型：<span class="highlight">高斯朴素贝叶斯(GNB)、随机森林(RF)、支持向量机(SVM)</span></p>
+                    <p><span class="highlight">高斯朴素贝叶斯 (GNB)：</span>基于贝叶斯定理与特征条件独立假设，计算后验概率进行分类</p>
+                    <p><span class="highlight">随机森林 (RF)：</span>通过多棵决策树投票提高泛化能力，减少过拟合</p>
+                    <p><span class="highlight">支持向量机 (SVM)：</span>寻找最优超平面，实现数据分类，适用于高维空间和小样本问题，通过Platt Scaling校准后输出不确定性概率</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>为什么要进行AI不确定性建模？</h3>
+                    <p>提高预测可靠性，建立可解释的评分依据，为商家提供改进建议，比如：</p>
+                    <p>对平台：平台在决定是否重点推广一家"优质"餐厅时，如果看到其评分置信度很低，则可以触发人工审核机制，避免因模型误判而推广劣质餐厅。</p>
+                    <p>对商家：商家看到"速度维度评分低且不确定性高"，可能意味着评价两极分化，而不是普遍认为慢。这提示商家需要分析特定场景下的问题，而非简单提速。</p>
+                    <p>对用户：用户在看到评分的同时看到置信区间，可以做出更明智的选择。</p>
                 </div>
                 
                 <div class="content-box">
-                    <h3>4. 模型验证与评估</h3>
+                    <h3>5. 模型验证与评估</h3>
                     <p>采用<span class="highlight">模型评估与验证(A/B测试思想)</span>，用数据验证模型是否适用于业务落地。</p>
+                    <p>评估指标：<span class="highlight">准确率、精确率、召回率、F1分数、时间消耗</span></p>
+                    <p>数据可视化：使用Matplotlib绘制性能对比图</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>为什么要进行模型验证与评估？</h3>
+                    <p>在管理学中，决策需要证据（Evidence），不能凭直觉。所以我们采用严格的模型验证流程判断评级系统是否有效。</p>
+                    <p>通过模型验证，确保我们的评级系统能够准确反映用户真实体验。</p>
                 </div>
                 
                 <div class="content-box">
-                    <h3>5. 分类与决策支持</h3>
+                    <h3>6. 分类与决策支持</h3>
                     <p>构建<span class="highlight">评分卡模型与决策支持系统(DSS)</span>，将分析结果转化为可执行的商业分类和决策依据。</p>
                 </div>
             </div>
             
-            <div class="page-counter">第2页/共7页</div>
+            <div class="page-counter">第2页/共8页</div>
             <div class="nav-buttons">
                 <button class="nav-button" onclick="prevPage()">上一页</button>
                 <button class="nav-button" onclick="showPage(1)">1</button>
@@ -385,6 +497,7 @@
                 <button class="nav-button" onclick="showPage(5)">5</button>
                 <button class="nav-button" onclick="showPage(6)">6</button>
                 <button class="nav-button" onclick="showPage(7)">7</button>
+                <button class="nav-button" onclick="showPage(8)">8</button>
                 <button class="nav-button" onclick="nextPage()">下一页</button>
             </div>
         </div>
@@ -432,11 +545,11 @@
             </div>
             
             <div class="image-placeholder">
-                插图3：数据处理流程图
+                <img src="./image.png" style="max-width: 100%; max-height: 100%;">
             </div>
-            <p class="image-caption">图3：项目数据处理与建模完整流程</p>
+            <p class="image-caption">图2：系统架构示意图</p>
             
-            <div class="page-counter">第3页/共7页</div>
+            <div class="page-counter">第3页/共8页</div>
             <div class="nav-buttons">
                 <button class="nav-button" onclick="prevPage()">上一页</button>
                 <button class="nav-button" onclick="showPage(1)">1</button>
@@ -446,6 +559,7 @@
                 <button class="nav-button" onclick="showPage(5)">5</button>
                 <button class="nav-button" onclick="showPage(6)">6</button>
                 <button class="nav-button" onclick="showPage(7)">7</button>
+                <button class="nav-button" onclick="showPage(8)">8</button>
                 <button class="nav-button" onclick="nextPage()">下一页</button>
             </div>
         </div>
@@ -469,27 +583,27 @@
                 <tbody>
                     <tr class="best-model">
                         <td>高斯朴素贝叶斯(GNB)</td>
-                        <td>>96%</td>
-                        <td>>96%</td>
-                        <td>>96%</td>
-                        <td>>96%</td>
-                        <td>极低</td>
+                        <td>98.67%</td>
+                        <td>98.67%</td>
+                        <td>98.67%</td>
+                        <td>98.67%</td>
+                        <td>0.0036s</td>
                     </tr>
                     <tr>
                         <td>随机森林(RF)</td>
-                        <td>高</td>
-                        <td>高</td>
-                        <td>高</td>
-                        <td>高</td>
-                        <td>低</td>
+                        <td>90.33%</td>
+                        <td>92.22%</td>
+                        <td>90.33%</td>
+                        <td>90.39%</td>
+                        <td>0.0174s</td>
                     </tr>
                     <tr>
                         <td>支持向量机(SVM)</td>
-                        <td>高</td>
-                        <td>高</td>
-                        <td>高</td>
-                        <td>高</td>
-                        <td>中等</td>
+                        <td>82.33%</td>
+                        <td>88.45%</td>
+                        <td>82.33%</td>
+                        <td>82.69%</td>
+                        <td>0.0072s</td>
                     </tr>
                 </tbody>
             </table>
@@ -497,18 +611,19 @@
             <div class="conclusion-box">
                 <h3>主要结论</h3>
                 <ul>
-                    <li><span class="highlight">GNB模型表现最佳</span>：在所有评估指标上均评分最高（>96%），全面优于其他模型</li>
+                    <li><span class="highlight">GNB模型表现最佳</span>：在所有评估指标上均评分最高（>98%），全面优于其他模型</li>
                     <li><span class="highlight">模型性能总体优异</span>：三种模型在核心分类指标上都取得了非常高的分数</li>
                     <li><span class="highlight">计算效率极高</span>：所有模型的训练和预测速度都非常快，耗时可忽略不计</li>
                 </ul>
+                <p>在该数据集和实验设置下，高斯朴素贝叶斯模型是明显的最佳选择。它在保持与另外两种模型近似的高效率的同时，提供了最优的预测精度。随机森林和支持向量机模型性能相同，可作为备选方案。</p>
             </div>
             
             <div class="image-placeholder">
-                插图4：模型性能对比图
+                <img src="./Figure_1.png" style="max-width: 100%; max-height: 100%;">
             </div>
-            <p class="image-caption">图4：三种模型在各项指标上的性能对比</p>
+            <p class="image-caption">图3：三种模型在各项指标上的性能对比</p>
             
-            <div class="page-counter">第4页/共7页</div>
+            <div class="page-counter">第4页/共8页</div>
             <div class="nav-buttons">
                 <button class="nav-button" onclick="prevPage()">上一页</button>
                 <button class="nav-button" onclick="showPage(1)">1</button>
@@ -518,6 +633,7 @@
                 <button class="nav-button" onclick="showPage(5)">5</button>
                 <button class="nav-button" onclick="showPage(6)">6</button>
                 <button class="nav-button" onclick="showPage(7)">7</button>
+                <button class="nav-button" onclick="showPage(8)">8</button>
                 <button class="nav-button" onclick="nextPage()">下一页</button>
             </div>
         </div>
@@ -536,12 +652,7 @@
                 <li><span class="highlight">多模型对比验证，结论稳健</span>：同时训练并评估三种差异较大的算法，确保模型选择具备充分依据</li>
             </ul>
             
-            <div class="image-placeholder">
-                插图5：EMA时间加权效果示意图
-            </div>
-            <p class="image-caption">图5：EMA机制如何增强评分时效性</p>
-            
-            <div class="page-counter">第5页/共7页</div>
+            <div class="page-counter">第5页/共8页</div>
             <div class="nav-buttons">
                 <button class="nav-button" onclick="prevPage()">上一页</button>
                 <button class="nav-button" onclick="showPage(1)">1</button>
@@ -551,6 +662,7 @@
                 <button class="nav-button" onclick="showPage(5)">5</button>
                 <button class="nav-button" onclick="showPage(6)">6</button>
                 <button class="nav-button" onclick="showPage(7)">7</button>
+                <button class="nav-button" onclick="showPage(8)">8</button>
                 <button class="nav-button" onclick="nextPage()">下一页</button>
             </div>
         </div>
@@ -563,23 +675,31 @@
                 <li><span class="highlight">数据获取依赖爬虫，存在合规与稳定性风险</span>：美团评论数据通过非官方接口爬取，面临法律或平台反爬限制</li>
                 
                 <li><span class="highlight">Qwen-Max调用成本高、耗时长</span>：调用25个并发API耗时一天，费用较高，大规模应用存在瓶颈</li>
+
+                <li><span class="highlight">Qwen-Max仍然存在量化与实际不匹配的情况</span>：部分评论量化结果与实际情感不符，需进一步优化模型</li>
                 
                 <li><span class="highlight">未充分处理冷启动与稀疏评论问题</span>：对于新开业或评论极少的店铺，模型预测可靠性下降</li>
                 
                 <li><span class="highlight">模型解释性有限</span>：未深入分析哪些特征对分类最关键，可加入SHAP或LIME等解释工具</li>
             </ul>
+
+            <div class="image-placeholder">
+                <img src="./QW.png" style="max-width: 100%; max-height: 100%;">
+            </div>
+            <p class="image-caption">图4：Qwen-Max量化与实际不匹配</p>
             
             <div class="content-box">
                 <h3>改进方向</h3>
                 <ul>
                     <li>探索官方数据合作渠道，降低合规风险</li>
-                    <li>研究模型蒸馏技术，降低大模型调用成本</li>
+                    <li>使用本地蒸馏模型，降低大模型调用成本</li>
+                    <li>优化量化提示词，提升情感匹配度</li>
                     <li>设计冷启动策略，提升系统普适性</li>
                     <li>引入特征重要性分析，增强业务洞察力</li>
                 </ul>
             </div>
             
-            <div class="page-counter">第6页/共7页</div>
+            <div class="page-counter">第6页/共8页</div>
             <div class="nav-buttons">
                 <button class="nav-button" onclick="prevPage()">上一页</button>
                 <button class="nav-button" onclick="showPage(1)">1</button>
@@ -589,6 +709,7 @@
                 <button class="nav-button" onclick="showPage(5)">5</button>
                 <button class="nav-button" onclick="showPage(6)">6</button>
                 <button class="nav-button" onclick="showPage(7)">7</button>
+                <button class="nav-button" onclick="showPage(8)">8</button>
                 <button class="nav-button" onclick="nextPage()">下一页</button>
             </div>
         </div>
@@ -620,12 +741,7 @@
                 </ul>
             </div>
             
-            <div class="image-placeholder">
-                插图6：项目应用场景示意图
-            </div>
-            <p class="image-caption">图6：系统在美团平台上的应用场景</p>
-            
-            <div class="page-counter">第7页/共7页</div>
+            <div class="page-counter">第7页/共8页</div>
             <div class="nav-buttons">
                 <button class="nav-button" onclick="prevPage()">上一页</button>
                 <button class="nav-button" onclick="showPage(1)">1</button>
@@ -635,6 +751,32 @@
                 <button class="nav-button" onclick="showPage(5)">5</button>
                 <button class="nav-button" onclick="showPage(6)">6</button>
                 <button class="nav-button" onclick="showPage(7)">7</button>
+                <button class="nav-button" onclick="showPage(8)">8</button>
+                <button class="nav-button" onclick="nextPage()">下一页</button>
+            </div>
+        </div>
+        
+        <!-- 第8页：谢谢大家 -->
+        <div id="page8" class="page" style="display:none;">
+            <div class="thank-you-page">
+                <div class="artistic-text">谢谢大家</div>
+                <div class="subtitle">感谢您的观看与支持</div>
+                <div class="decoration">✓</div>
+                <p>美团评论情感分析项目展示到此结束</p>
+                <p>如有任何问题，欢迎与我们联系</p>
+            </div>
+            
+            <div class="page-counter">第8页/共8页</div>
+            <div class="nav-buttons">
+                <button class="nav-button" onclick="prevPage()">上一页</button>
+                <button class="nav-button" onclick="showPage(1)">1</button>
+                <button class="nav-button" onclick="showPage(2)">2</button>
+                <button class="nav-button" onclick="showPage(3)">3</button>
+                <button class="nav-button" onclick="showPage(4)">4</button>
+                <button class="nav-button" onclick="showPage(5)">5</button>
+                <button class="nav-button" onclick="showPage(6)">6</button>
+                <button class="nav-button" onclick="showPage(7)">7</button>
+                <button class="nav-button" onclick="showPage(8)">8</button>
                 <button class="nav-button" onclick="nextPage()" disabled>下一页</button>
             </div>
         </div>
@@ -647,7 +789,7 @@
 
     <script>
         let currentPage = 1;
-        const totalPages = 7;
+        const totalPages = 8;
         
         function showPage(pageNumber) {
             // 隐藏所有页面
