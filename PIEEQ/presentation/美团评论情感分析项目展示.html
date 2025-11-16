@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美团评论情感分析项目</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+        }
+        
+        body {
+            background-color: #fffdf0; /* 浅黄色 */
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #ffd700; /* 黄色 */
+            padding: 20px 40px;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+        
+        .meituan-logo {
+            width: 120px;
+            height: auto;
+            margin-right: 20px;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            color: #333;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .page {
+            background-color: white;
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            min-height: 600px;
+        }
+        
+        h2 {
+            color: #ff9900; /* 美团黄 */
+            border-left: 5px solid #ff9900;
+            padding-left: 15px;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+        
+        h3 {
+            color: #333;
+            margin: 20px 0 15px;
+            font-size: 1.4rem;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .content-box {
+            background-color: #fff9e6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ffd700;
+        }
+        
+        .content-box h3 {
+            color: #ff9900;
+            margin-top: 0;
+        }
+        
+        .image-placeholder {
+            background-color: #f5f5f5;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            margin: 20px 0;
+            color: #888;
+            font-style: italic;
+        }
+        
+        .image-caption {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            background-color: #fff9c4;
+            padding: 3px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .conclusion-box {
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4caf50;
+            margin: 20px 0;
+        }
+        
+        .conclusion-box h3 {
+            color: #2e7d32;
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+        }
+        
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background-color: #ff9900;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 0;
+            width: calc(100% - 40px);
+            height: 2px;
+            background-color: #ff9900;
+            margin-right: -50%;
+        }
+        
+        /* 修改：模型比较表格样式 */
+        .model-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .model-table th {
+            background-color: #ff9900;
+            color: white;
+            padding: 12px 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .model-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .model-table tr:nth-child(even) {
+            background-color: #fff9e6;
+        }
+        
+        .model-table tr:hover {
+            background-color: #fff3cc;
+        }
+        
+        .model-table .best-model {
+            background-color: #e8f5e9;
+            font-weight: bold;
+        }
+        
+        .advantages-list, .disadvantages-list {
+            padding-left: 20px;
+        }
+        
+        .advantages-list li {
+            list-style-type: '✓ ';
+            color: #4caf50;
+        }
+        
+        .disadvantages-list li {
+            list-style-type: '⚠ ';
+            color: #f44336;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .nav-button {
+            background-color: #ff9900;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-button:hover {
+            background-color: #e68900;
+        }
+        
+        .page-counter {
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #666;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-steps {
+                flex-direction: column;
+            }
+            
+            .step:not(:last-child)::after {
+                display: none;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo-section {
+                justify-content: center;
+                margin-bottom: 15px;
+            }
+            
+            .model-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-section">
+                <img src="./logo.png" alt="美团Logo" class="meituan-logo">
+                <h1>评论情感分析项目展示</h1>
+            </div>
+        </header>
+        
+        <!-- 第1页：项目目的 -->
+        <div id="page1" class="page">
+            <h2>一、项目目的</h2>
+            <p>研究发现，美团平台存在"评论与评分不一致"现象：部分用户一边给予差评文字，一边打出高分星级评价，导致平台真实星级评分存在虚高问题。</p>
+            
+            <div class="image-placeholder">
+                <img src="./logo.png">
+            </div>
+            <p class="image-caption">图1：用户差评文字与高星评分对比示例</p>
+            
+            <div class="content-box">
+                <h3>核心目标</h3>
+                <p>针对美团平台存在的"评论与评分不一致"问题，我们开发了此项目。通过大语言模型情感分析，外加多算法融合的AI不确定性建模，构建更准确的餐厅评级系统，为商家和消费者提供真实可靠的参考。</p>
+            </div>
+            
+            <div class="image-placeholder">
+                插图2：项目架构示意图
+            </div>
+            <p class="image-caption">图2：项目整体架构与技术路线图</p>
+            
+            <div class="page-counter">第1页/共7页</div>
+            <div class="nav-buttons">
+                <button class="nav-button" onclick="prevPage()">上一页</button>
+                <button class="nav-button" onclick="showPage(1)">1</button>
+                <button class="nav-button" onclick="showPage(2)">2</button>
+                <button class="nav-button" onclick="showPage(3)">3</button>
+                <button class="nav-button" onclick="showPage(4)">4</button>
+                <button class="nav-button" onclick="showPage(5)">5</button>
+                <button class="nav-button" onclick="showPage(6)">6</button>
+                <button class="nav-button" onclick="showPage(7)">7</button>
+                <button class="nav-button" onclick="nextPage()">下一页</button>
+            </div>
+        </div>
+        
+        <!-- 第2页：商务分析方法 -->
+        <div id="page2" class="page" style="display:none;">
+            <h2>二、商务分析方法</h2>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h3>1. 数据收集与用户声音分析</h3>
+                    <p>通过爬取美团公开评论获取用户需求与感知，运用<span class="highlight">用户声音分析(VoC)</span>和文本数据分析方法。</p>
+                </div>
+                
+                <div class="content-box">
+                    <h3>2. 多维度用户满意度分析</h3>
+                    <p>对评论进行多维度量化（口味、服务、配送），构建<span class="highlight">指标体系(KPI)</span>，将主观评价转为可量化指标。</p>
+                </div>
+                
+                <div class="content-box">
+                    <h3>3. AI不确定性建模与预测</h3>
+                    <p>运用<span class="highlight">敏感性分析、预测建模和风险概率分析</span>，处理不确定性并对结果可信度进行评估。</p>
+                </div>
+                
+                <div class="content-box">
+                    <h3>4. 模型验证与评估</h3>
+                    <p>采用<span class="highlight">模型评估与验证(A/B测试思想)</span>，用数据验证模型是否适用于业务落地。</p>
+                </div>
+                
+                <div class="content-box">
+                    <h3>5. 分类与决策支持</h3>
+                    <p>构建<span class="highlight">评分卡模型与决策支持系统(DSS)</span>，将分析结果转化为可执行的商业分类和决策依据。</p>
+                </div>
+            </div>
+            
+            <div class="page-counter">第2页/共7页</div>
+            <div class="nav-buttons">
+                <button class="nav-button" onclick="prevPage()">上一页</button>
+                <button class="nav-button" onclick="showPage(1)">1</button>
+                <button class="nav-button" onclick="showPage(2)">2</button>
+                <button class="nav-button" onclick="showPage(3)">3</button>
+                <button class="nav-button" onclick="showPage(4)">4</button>
+                <button class="nav-button" onclick="showPage(5)">5</button>
+                <button class="nav-button" onclick="showPage(6)">6</button>
+                <button class="nav-button" onclick="showPage(7)">7</button>
+                <button class="nav-button" onclick="nextPage()">下一页</button>
+            </div>
+        </div>
+        
+        <!-- 第3页：处理流程 -->
+        <div id="page3" class="page" style="display:none;">
+            <h2>三、处理流程</h2>
+            
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>数据获取</h3>
+                    <p>从美团爬取1800家店铺的52万条评论数据</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>数据清洗</h3>
+                    <p>处理非法数据，转换时间戳，存储关键信息</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>情感量化</h3>
+                    <p>使用Qwen-Max模型进行多维度量化分析</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>时间加权</h3>
+                    <p>计算EMA值，生成训练集与测试集</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h3>模型训练</h3>
+                    <p>训练三种机器学习模型</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <h3>模型测试</h3>
+                    <p>评估模型性能并进行数据可视化</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">7</div>
+                    <h3>得出结论</h3>
+                    <p>基于测试结果形成最终结论</p>
+                </div>
+            </div>
+            
+            <div class="image-placeholder">
+                插图3：数据处理流程图
+            </div>
+            <p class="image-caption">图3：项目数据处理与建模完整流程</p>
+            
+            <div class="page-counter">第3页/共7页</div>
+            <div class="nav-buttons">
+                <button class="nav-button" onclick="prevPage()">上一页</button>
+                <button class="nav-button" onclick="showPage(1)">1</button>
+                <button class="nav-button" onclick="showPage(2)">2</button>
+                <button class="nav-button" onclick="showPage(3)">3</button>
+                <button class="nav-button" onclick="showPage(4)">4</button>
+                <button class="nav-button" onclick="showPage(5)">5</button>
+                <button class="nav-button" onclick="showPage(6)">6</button>
+                <button class="nav-button" onclick="showPage(7)">7</button>
+                <button class="nav-button" onclick="nextPage()">下一页</button>
+            </div>
+        </div>
+        
+        <!-- 第4页：模型比较与结论 -->
+        <div id="page4" class="page" style="display:none;">
+            <h2>四、模型比较与结论</h2>
+            
+            <!-- 修改：将卡片形式改为表格形式 -->
+            <table class="model-table">
+                <thead>
+                    <tr>
+                        <th>模型</th>
+                        <th>准确率</th>
+                        <th>精确率</th>
+                        <th>召回率</th>
+                        <th>F1分数</th>
+                        <th>时间消耗</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="best-model">
+                        <td>高斯朴素贝叶斯(GNB)</td>
+                        <td>>96%</td>
+                        <td>>96%</td>
+                        <td>>96%</td>
+                        <td>>96%</td>
+                        <td>极低</td>
+                    </tr>
+                    <tr>
+                        <td>随机森林(RF)</td>
+                        <td>高</td>
+                        <td>高</td>
+                        <td>高</td>
+                        <td>高</td>
+                        <td>低</td>
+                    </tr>
+                    <tr>
+                        <td>支持向量机(SVM)</td>
+                        <td>高</td>
+                        <td>高</td>
+                        <td>高</td>
+                        <td>高</td>
+                        <td>中等</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="conclusion-box">
+                <h3>主要结论</h3>
+                <ul>
+                    <li><span class="highlight">GNB模型表现最佳</span>：在所有评估指标上均评分最高（>96%），全面优于其他模型</li>
+                    <li><span class="highlight">模型性能总体优异</span>：三种模型在核心分类指标上都取得了非常高的分数</li>
+                    <li><span class="highlight">计算效率极高</span>：所有模型的训练和预测速度都非常快，耗时可忽略不计</li>
+                </ul>
+            </div>
+            
+            <div class="image-placeholder">
+                插图4：模型性能对比图
+            </div>
+            <p class="image-caption">图4：三种模型在各项指标上的性能对比</p>
+            
+            <div class="page-counter">第4页/共7页</div>
+            <div class="nav-buttons">
+                <button class="nav-button" onclick="prevPage()">上一页</button>
+                <button class="nav-button" onclick="showPage(1)">1</button>
+                <button class="nav-button" onclick="showPage(2)">2</button>
+                <button class="nav-button" onclick="showPage(3)">3</button>
+                <button class="nav-button" onclick="showPage(4)">4</button>
+                <button class="nav-button" onclick="showPage(5)">5</button>
+                <button class="nav-button" onclick="showPage(6)">6</button>
+                <button class="nav-button" onclick="showPage(7)">7</button>
+                <button class="nav-button" onclick="nextPage()">下一页</button>
+            </div>
+        </div>
+        
+        <!-- 第5页：优势分析 -->
+        <div id="page5" class="page" style="display:none;">
+            <h2>五、项目优势</h2>
+            
+            <ul class="advantages-list">
+                <li><span class="highlight">数据真实性强，覆盖广</span>：基于1800家店铺、52万条真实用户评论，具有较强的代表性与现实意义</li>
+                
+                <li><span class="highlight">引入大模型进行情感量化</span>：利用阿里云Qwen-Max大语言模型对评论文本进行多维度语义理解，提升文本量化准确性</li>
+                
+                <li><span class="highlight">创新性融合时间加权(EMA)机制</span>：引入指数移动平均对历史评论进行时间衰减加权，增强评分的动态性和时效性</li>
+                
+                <li><span class="highlight">多模型对比验证，结论稳健</span>：同时训练并评估三种差异较大的算法，确保模型选择具备充分依据</li>
+            </ul>
+            
+            <div class="image-placeholder">
+                插图5：EMA时间加权效果示意图
+            </div>
+            <p class="image-caption">图5：EMA机制如何增强评分时效性</p>
+            
+            <div class="page-counter">第5页/共7页</div>
+            <div class="nav-buttons">
+                <button class="nav-button" onclick="prevPage()">上一页</button>
+                <button class="nav-button" onclick="showPage(1)">1</button>
+                <button class="nav-button" onclick="showPage(2)">2</button>
+                <button class="nav-button" onclick="showPage(3)">3</button>
+                <button class="nav-button" onclick="showPage(4)">4</button>
+                <button class="nav-button" onclick="showPage(5)">5</button>
+                <button class="nav-button" onclick="showPage(6)">6</button>
+                <button class="nav-button" onclick="showPage(7)">7</button>
+                <button class="nav-button" onclick="nextPage()">下一页</button>
+            </div>
+        </div>
+        
+        <!-- 第6页：不足与改进 -->
+        <div id="page6" class="page" style="display:none;">
+            <h2>五、项目不足与改进方向</h2>
+            
+            <ul class="disadvantages-list">
+                <li><span class="highlight">数据获取依赖爬虫，存在合规与稳定性风险</span>：美团评论数据通过非官方接口爬取，面临法律或平台反爬限制</li>
+                
+                <li><span class="highlight">Qwen-Max调用成本高、耗时长</span>：调用25个并发API耗时一天，费用较高，大规模应用存在瓶颈</li>
+                
+                <li><span class="highlight">未充分处理冷启动与稀疏评论问题</span>：对于新开业或评论极少的店铺，模型预测可靠性下降</li>
+                
+                <li><span class="highlight">模型解释性有限</span>：未深入分析哪些特征对分类最关键，可加入SHAP或LIME等解释工具</li>
+            </ul>
+            
+            <div class="content-box">
+                <h3>改进方向</h3>
+                <ul>
+                    <li>探索官方数据合作渠道，降低合规风险</li>
+                    <li>研究模型蒸馏技术，降低大模型调用成本</li>
+                    <li>设计冷启动策略，提升系统普适性</li>
+                    <li>引入特征重要性分析，增强业务洞察力</li>
+                </ul>
+            </div>
+            
+            <div class="page-counter">第6页/共7页</div>
+            <div class="nav-buttons">
+                <button class="nav-button" onclick="prevPage()">上一页</button>
+                <button class="nav-button" onclick="showPage(1)">1</button>
+                <button class="nav-button" onclick="showPage(2)">2</button>
+                <button class="nav-button" onclick="showPage(3)">3</button>
+                <button class="nav-button" onclick="showPage(4)">4</button>
+                <button class="nav-button" onclick="showPage(5)">5</button>
+                <button class="nav-button" onclick="showPage(6)">6</button>
+                <button class="nav-button" onclick="showPage(7)">7</button>
+                <button class="nav-button" onclick="nextPage()">下一页</button>
+            </div>
+        </div>
+        
+        <!-- 第7页：总结 -->
+        <div id="page7" class="page" style="display:none;">
+            <h2>六、项目总结</h2>
+            
+            <p>本项目聚焦于在线餐饮评价体系中的"高星低评"矛盾现象，创新性地融合大语言模型与传统机器学习方法，构建了一套基于真实用户评论的智能店铺质量评估系统。</p>
+            
+            <div class="content-box">
+                <h3>技术亮点</h3>
+                <ul>
+                    <li>基于52万条真实评论的大数据分析</li>
+                    <li>阿里云Qwen-Max大模型的多维度情感量化</li>
+                    <li>指数移动平均(EMA)机制增强评分时效性</li>
+                    <li>三种机器学习模型的对比验证</li>
+                    <li>高斯朴素贝叶斯(GNB)模型的优异表现(>96%)</li>
+                </ul>
+            </div>
+            
+            <div class="content-box">
+                <h3>应用前景</h3>
+                <ul>
+                    <li>为平台方提供更可靠的商家评级工具</li>
+                    <li>为消费者筛选优质餐厅提供科学依据</li>
+                    <li>可拓展至其他生活服务平台(如大众点评、饿了么)</li>
+                    <li>具备显著的社会价值与商业前景</li>
+                </ul>
+            </div>
+            
+            <div class="image-placeholder">
+                插图6：项目应用场景示意图
+            </div>
+            <p class="image-caption">图6：系统在美团平台上的应用场景</p>
+            
+            <div class="page-counter">第7页/共7页</div>
+            <div class="nav-buttons">
+                <button class="nav-button" onclick="prevPage()">上一页</button>
+                <button class="nav-button" onclick="showPage(1)">1</button>
+                <button class="nav-button" onclick="showPage(2)">2</button>
+                <button class="nav-button" onclick="showPage(3)">3</button>
+                <button class="nav-button" onclick="showPage(4)">4</button>
+                <button class="nav-button" onclick="showPage(5)">5</button>
+                <button class="nav-button" onclick="showPage(6)">6</button>
+                <button class="nav-button" onclick="showPage(7)">7</button>
+                <button class="nav-button" onclick="nextPage()" disabled>下一页</button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>This Webpage Copyright &copy; 2025 ZHAO Shanhe (Edward). All rights reserved. </p>
+            <p>如遇到问题，请联系 <a href="mailto:zhuangch7306@163.com">zhuangch7306@163.com</a></p>
+        </footer>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 7;
+        
+        function showPage(pageNumber) {
+            // 隐藏所有页面
+            for (let i = 1; i <= totalPages; i++) {
+                document.getElementById(`page${i}`).style.display = 'none';
+            }
+            
+            // 显示当前页面
+            document.getElementById(`page${pageNumber}`).style.display = 'block';
+            
+            // 更新当前页码
+            currentPage = pageNumber;
+        }
+        
+        function nextPage() {
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        }
+        
+        function prevPage() {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        }
+        
+        // 初始化显示第一页
+        showPage(1);
+    </script>
+</body>
+</html>
