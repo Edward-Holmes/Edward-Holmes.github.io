@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <link rel="icon" href="./logo.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>美团评论量化分析项目</title>
@@ -485,6 +486,7 @@
                     <p>通过爬取美团公开评论获取用户需求与感知，运用<span class="highlight">用户声音分析(VoC)</span>和文本数据分析方法。</p>
                     <p>通过Python爬虫技术，从美团平台爬取<span class="highlight">1800家店铺</span>的<span class="highlight">52万余条评论数据</span>，覆盖全国主要一线城市</p>
                     <p>数据清洗步骤: 去除HTML标签 → 处理特殊字符 → 过滤无效评论 → 处理缺失值 → 时间戳转为标准格式</p>
+                    <p>与课程<span class="highlight">Week 2 Lecture 取样</span>、<span class="highlight">Week 3 Lecture 数据挖掘过程</span>中的<span class="highlight">EDA</span>相关</p>
                 </div>
 
                 <div class="content-box">
@@ -493,9 +495,10 @@
                 </div>
                 
                 <div class="content-box">
-                    <h3>2. 多维度用户量化分析</h3>
+                    <h3>2. 多维度用户评论情感量化分析</h3>
                     <p>使用Qwen-Max模型对评论进行多维度量化（口味、服务、配送），构建<span class="highlight">指标体系(KPI)</span>，将主观评价转为可量化指标。</p>
                     <p>调用25个阿里云API并行分析，总耗时近26小时</p>
+                    <p>与课程<span class="highlight">Week 10 Lecture 情感分析</span>相关</p>
                 </div>
 
                 <div class="content-box">
@@ -507,6 +510,7 @@
 
                 <div class="content-box">
                     <h3>3. EMA时间加权计算</h3>
+                    <p>指数移动平均（EMA，Exponential Moving Average）是一种加权移动平均算法。在深度学习中，是训练神经网络常用梯度更新策略（如Adam/FTRL）。</p>
                     <p>计算三个维度的指数移动平均值，<span class="highlight">时间衰减因子α=0.2</span></p>
                     <p>EMA计算: 三个量化标准的时间加权平均</p>
                 </div>
@@ -524,6 +528,7 @@
                     <p><span class="highlight">高斯朴素贝叶斯 (GNB)：</span>基于贝叶斯定理与特征条件独立假设，计算后验概率进行分类</p>
                     <p><span class="highlight">随机森林 (RF)：</span>通过多棵决策树投票提高泛化能力，减少过拟合</p>
                     <p><span class="highlight">支持向量机 (SVM)：</span>寻找最优超平面，实现数据分类，适用于高维空间和小样本问题，通过Platt Scaling校准后输出不确定性概率</p>
+                    <p>随机森林与<span class="highlight">课程Week 5 Lecture 决策树</span>相关</p>
                 </div>
 
                 <div class="content-box">
@@ -539,6 +544,7 @@
                     <p>采用<span class="highlight">模型评估与验证(A/B测试思想)</span>，用数据验证模型是否适用于业务落地。</p>
                     <p>评估指标：<span class="highlight">准确率、精确率、召回率、F1分数、时间消耗</span></p>
                     <p>数据可视化：使用Matplotlib绘制性能对比图</p>
+                    <p>与课程<span class="highlight">Week 6 Lecture 模型评估</span>相关</p>
                 </div>
 
                 <div class="content-box">
