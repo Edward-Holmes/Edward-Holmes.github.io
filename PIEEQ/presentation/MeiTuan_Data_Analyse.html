@@ -429,6 +429,44 @@
                 flex: 0 0 calc(50% - 10px); /* 每行2个按钮 */
             }
         }
+
+        .meituan-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(255, 208, 0, 0.1);
+        }
+
+        .meituan-table th,
+        .meituan-table td {
+            border: 2px solid #FFD000; /* 美团黄色 */
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .meituan-table th {
+            background-color: #FFF9E6; /* 浅黄色背景 */
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .meituan-table tr:nth-child(even) {
+            background-color: #FFFDF5; /* 更浅的黄色背景 */
+        }
+
+        .meituan-table tr:hover {
+            background-color: #FFF5CC; /* 鼠标悬停效果 */
+            transition: background-color 0.3s;
+        }
+
+        .meituan-table caption {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -837,6 +875,33 @@
                 <div class="decoration">✓</div>
                 <p>美团评论量化分析项目展示到此结束</p>
                 <p>如有任何问题，欢迎与我们联系</p>
+                <table class="meituan-table">
+                    <caption>第五组全体成员，向诸位致意</caption>
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>学号</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>赵珊禾</td>
+                        <td>25050101M</td>
+                    </tr>
+                    <tr>
+                        <td>林艳锋</td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td>王薇雅</td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td>朱鸿坤</td>
+                        <td> </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             
             <div class="page-counter">第8页/共8页</div>
