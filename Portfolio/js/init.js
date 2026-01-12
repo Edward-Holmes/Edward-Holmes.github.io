@@ -369,7 +369,7 @@ function arlo_tm_down(){
 		return false;
 	});
 	
-	jQuery('.arlo_tm_services .lets_work a').on('click',function(){
+	jQuery('.arlo_tm_skills .lets_work a').on('click',function(){
 		if($('.arlo_tm_topbar').length){
 			if($.attr(this, 'href') !== '#'){
 			$('html, body').animate({
