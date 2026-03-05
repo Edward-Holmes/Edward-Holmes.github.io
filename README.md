@@ -6,4 +6,4 @@ Game 1: <https://edward-holmes.github.io/Little_Game1/Game.html>
 
 Resume: <https://edward-holmes.github.io/myCV/index.html>
 
-Portfolio: <https://both-edward.github.io/>
+Portfolio: <https://edward-holmes.github.io/Portfolio/index.html>
