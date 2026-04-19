@@ -872,7 +872,7 @@ position:absolute;top:0;bottom:0;left:0;right:0;z-index:4
 }
 .arlo_tm_contact
 {
-width:100%;height:auto;clear:both;float:left;padding:140px 0 140px 0
+width:100%;height:auto;clear:both;float:left;padding:140px 0 140px 0;background-color:#f9f9f9
 }
 .arlo_tm_contact .contact_inner
 {
