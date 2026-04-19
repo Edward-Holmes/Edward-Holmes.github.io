@@ -1,0 +1,121 @@
+/* ============================================
+   Language Switcher Styles
+   ============================================ */
+
+/* Make topbar menu flex so lang switcher sits beside nav */
+.arlo_tm_topbar .topbar_inner .menu {
+    display: flex;
+    align-items: center;
+}
+
+/* Top bar language switcher (desktop) */
+.arlo_tm_lang_switch {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 20px;
+    position: relative;
+    gap: 0;
+    z-index: 20;
+}
+
+.arlo_tm_lang_switch .lang-btn {
+    text-decoration: none;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 4px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.arlo_tm_lang_switch .lang-btn:first-child {
+    border-radius: 4px 0 0 4px;
+    border-right: none;
+}
+
+.arlo_tm_lang_switch .lang-btn:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+.arlo_tm_lang_switch .lang-btn:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.arlo_tm_lang_switch .lang-btn.active {
+    background-color: #e65f78;
+    border-color: #e65f78;
+    color: #fff;
+}
+
+/* When topbar has scroll background */
+.arlo_tm_topbar.animate .arlo_tm_lang_switch .lang-btn {
+    color: #000;
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.arlo_tm_topbar.animate .arlo_tm_lang_switch .lang-btn:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    color: #000;
+}
+
+.arlo_tm_topbar.animate .arlo_tm_lang_switch .lang-btn.active {
+    background-color: #e65f78;
+    border-color: #e65f78;
+    color: #fff;
+}
+
+/* Mobile menu language switcher */
+.arlo_tm_mobile_menu .mobile_lang_switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+
+.arlo_tm_mobile_menu .mobile_lang_switch .lang-btn {
+    text-decoration: none;
+    color: #000;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 6px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.arlo_tm_mobile_menu .mobile_lang_switch .lang-btn:first-child {
+    border-radius: 4px 0 0 4px;
+    border-right: none;
+}
+
+.arlo_tm_mobile_menu .mobile_lang_switch .lang-btn:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+.arlo_tm_mobile_menu .mobile_lang_switch .lang-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.arlo_tm_mobile_menu .mobile_lang_switch .lang-btn.active {
+    background-color: #e65f78;
+    border-color: #e65f78;
+    color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 1040px) {
+    .arlo_tm_lang_switch {
+        display: none;
+    }
+}

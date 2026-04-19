@@ -16,6 +16,7 @@
 <link rel="stylesheet" type="text/css" href="css/colors.css" />
 <link rel="stylesheet" type="text/css" href="css/darkMode.css" />
 <link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/lang-switcher.css" />
 <!--[if lt IE 9]><script type="text/javascript" src="js/modernizr.custom.js"></script><![endif]--><!-- /STYLES -->
 </head>
 <body>
@@ -53,12 +54,16 @@
       <div class="container">
         <div class="dropdown_inner">
           <ul class="anchor_nav">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skill">Skill</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#home" data-i18n="nav.home">Home</a></li>
+            <li><a href="#about" data-i18n="nav.about">About</a></li>
+            <li><a href="#skill" data-i18n="nav.skill">Skill</a></li>
+            <li><a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
+            <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
           </ul>
+          <div class="mobile_lang_switch">
+            <button class="lang-btn" data-lang="en" onclick="i18n.setLanguage('en')">EN</button>
+            <button class="lang-btn" data-lang="zh" onclick="i18n.setLanguage('zh')">中</button>
+          </div>
         </div>
       </div>
     </div>
@@ -70,12 +75,16 @@
         <div class="logo"><a href="#"><img class="light" src="img/logo/classic/light.png" alt="" /></a><a href="#"><img class="dark" src="img/logo/classic/dark.png" alt="" /></a></div>
         <div class="menu">
           <ul class="anchor_nav">
-            <li class="current"><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skill">Skill</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li class="current"><a href="#home" data-i18n="nav.home">Home</a></li>
+            <li><a href="#about" data-i18n="nav.about">About</a></li>
+            <li><a href="#skill" data-i18n="nav.skill">Skill</a></li>
+            <li><a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
+            <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
           </ul>
+          <div class="arlo_tm_lang_switch">
+            <button class="lang-btn" data-lang="en" onclick="i18n.setLanguage('en')">EN</button>
+            <button class="lang-btn" data-lang="zh" onclick="i18n.setLanguage('zh')">中</button>
+          </div>
         </div>
       </div>
     </div>
@@ -91,10 +100,10 @@
         <div class="main" data-img-url="img/me/me1.jpeg"></div>
       </div>
       <div class="name_holder">
-        <h3>ZHAO<span>Shanhe</span></h3>
+        <h3><span data-i18n="hero.name.first">ZHAO</span><span data-i18n="hero.name.last">Shanhe</span></h3>
       </div>
       <div class="text_typing">
-        <p>I'm <span class="arlo_tm_animation_text_word"></span></p>
+        <p><span data-i18n="hero.prefix">I'm</span> <span class="arlo_tm_animation_text_word"></span></p>
       </div>
     </div>
     <div class="arlo_tm_arrow_wrap bounce anchor"> <a href="#about"><i class="xcon-angle-double-down"></i></a> </div>
@@ -104,8 +113,8 @@
   <!-- ABOUT -->
   <div class="arlo_tm_about" id="about">
     <div class="container">
-      <div class="arlo_tm_main_title"> <span>Biography</span>
-        <h3>About Me</h3>
+      <div class="arlo_tm_main_title"> <span data-i18n="about.subtitle">Biography</span>
+        <h3 data-i18n="about.title">About Me</h3>
       </div>
       <div class="about_inner">
         <div class="left">
@@ -120,40 +129,40 @@
         </div>
         <div class="right">
           <div class="about_title">
-            <h3>I'm ZHAO Shanhe and <span class="arlo_tm_animation_text_word"></span></h3>
+            <h3><span data-i18n="about.intro">I'm ZHAO Shanhe and </span><span class="arlo_tm_animation_text_word"></span></h3>
           </div>
           <div class="text">
-            <p>Hi! I'm <span>ZHAO Shanhe </span>, a Full Stack Engineer with 2 years of experience, whose English name is Edward, also skilled in data analysis and AI. I hold a Honours Bachelor of Science in Internet and Multimedia Technology from Hong Kong Polytechnic University.</p>
+            <p data-i18n="about.desc">Hi! I'm <span>ZHAO Shanhe </span>, a Full Stack Engineer with 2 years of experience, whose English name is Edward, also skilled in data analysis and AI. I hold a Honours Bachelor of Science in Internet and Multimedia Technology from Hong Kong Polytechnic University.</p>
           </div>
           <div class="about_short_contact_wrap">
             <ul>
               <li> <img class="svg" src="img/svg/gift.svg" alt="" /> <span>
-                <label>Birthday:</label>
+                <label data-i18n="about.birthday">Birthday:</label>
                 07.05.1999</span> </li>
               <li> <img class="svg" src="img/svg/calendar-4.svg" alt="" /> <span>
-                <label>Age:</label>
+                <label data-i18n="about.age">Age:</label>
                 26</span> </li>
               <li> <img class="svg" src="img/svg/location-1.svg" alt="" /> <span>
-                <label>Location:</label>
-                <a class="href_location" href="#"> Hami, Xinjiang, China </a></span> </li>
+                <label data-i18n="about.location">Location:</label>
+                <a class="href_location" href="#" data-i18n="about.location-desc"> Hami, Xinjiang, China </a></span> </li>
               <li> <img class="svg" src="img/svg/game-controller-2.svg" alt="" /> <span>
-                <label>Interests:</label>
-                Computer, Reading</span> </li>
+                <label data-i18n="about.interests">Interests:</label>
+                <a data-i18n="about.interests-desc">Computer, Reading</a></span> </li>
               <li> <img class="svg" src="img/svg/study-5.svg" alt="" /> <span>
-                <label>Study:</label>
-                <a class="href_location" href="#"> Hong Kong Polytechnic University </a> <br> 2019.09 ~ 2023.06 </span> </li>
+                <label data-i18n="about.study">Study:</label>
+                <a class="href_location" href="#" data-i18n="about.study1-desc"> Hong Kong Polytechnic University </a> <br> 2019.09 ~ 2023.06 </span> </li>
               <li> <img class="svg" src="img/svg/degree-1.svg" alt="" /> <span>
-                <label>Degree:</label>
-                Bachelor of Science (Honours) <br> Internet and Multimedia Technology </span> </li>
+                <label data-i18n="about.degree">Degree:</label>
+                <a data-i18n="about.degree1-desc"> Bachelor of Science (Honours) </a> <br> <a data-i18n="about.degree1-specialization">Internet and Multimedia Technology</a> </span> </li>
               <li> <img class="svg" src="img/svg/study-5.svg" alt="" /> <span>
-                <label>Study:</label>
-                <a class="href_location" href="#"> Hong Kong Polytechnic University </a> <br> 2025.10 ~ Now </span> </li>
+                <label data-i18n="about.study">Study:</label>
+                <a class="href_location" href="#" data-i18n="about.study2-desc"> Hong Kong Polytechnic University </a> <br> 2025.10 ~ Now </span> </li>
               <li> <img class="svg" src="img/svg/degree-1.svg" alt="" /> <span>
-                <label>Degree:</label>
-                Master of Science <br> Business Analytics </span> </li>
+                <label data-i18n="about.degree">Degree:</label>
+                <a data-i18n="about.degree2-desc"> Master of Science </a> <br> <a data-i18n="about.degree2-specialization">Business Analytics</a> </span> </li>
             </ul>
           </div>
-          <div class="arlo_tm_button"> <a href="resume/Edward_CV.pdf" download><span>Download CV</span></a> </div>
+          <div class="arlo_tm_button"> <a href="resume/Edward_CV.pdf" download><span data-i18n="about.cv">Download CV</span></a> </div>
         </div>
       </div>
     </div>
@@ -164,50 +173,50 @@
   <div class="arlo_tm_section" id="skill">
     <div class="arlo_tm_skills">
       <div class="container">
-        <div class="arlo_tm_main_title"> <span>Skill</span>
-          <h3>Quality Skill</h3>
+        <div class="arlo_tm_main_title"> <span data-i18n="skill.subtitle">Skill</span>
+          <h3 data-i18n="skill.title">Quality Skill</h3>
         </div>
         <div class="skill_inner">
           <ul>
             <li class="wow fadeInLeft" data-wow-duration="1.5s">
               <div class="inner"> <img class="svg" src="img/svg/creativity.svg" alt="" />
-                <h3>Creativity</h3>
-                <p>I thrive at the intersection of technology and art, bridging technical challenges with imaginative problem-solving.</p>
+                <h3 data-i18n="skill.creativity.title">Creativity</h3>
+                <p data-i18n="skill.creativity.desc">I thrive at the intersection of technology and art, bridging technical challenges with imaginative problem-solving.</p>
               </div>
             </li>
             <li class="wow fadeInLeft" data-wow-duration="1.5s" data-wow-delay="0.2s">
               <div class="inner"> <img class="svg" src="img/svg/code.svg" alt="" />
-                <h3>Development</h3>
-                <p>I am proficient in multiple development languages such as Python, Swift, Java, HTML, CSS, JavaScript, PHP, C#, etc.</p>
+                <h3 data-i18n="skill.dev.title">Development</h3>
+                <p data-i18n="skill.dev.desc">I am proficient in multiple development languages such as Python, Swift, Java, HTML, CSS, JavaScript, PHP, C#, etc.</p>
               </div>
             </li>
             <li class="wow fadeInLeft" data-wow-duration="1.5s" data-wow-delay="0.4s">
               <div class="inner"> <img class="svg" src="img/svg/calendar-4.svg" alt="" />
-                <h3>Methodical Organizer</h3>
-                <p>Methodical organizer committed to structured workflows ensuring timely outcomes.</p>
+                <h3 data-i18n="skill.organizer.title">Methodical Organizer</h3>
+                <p data-i18n="skill.organizer.desc">Methodical organizer committed to structured workflows ensuring timely outcomes.</p>
               </div>
             </li>
             <li class="wow fadeInLeft" data-wow-duration="1.5s">
               <div class="inner"> <img class="svg" src="img/svg/photoshop.svg" alt="" />
-                <h3>All-Rounder</h3>
-                <p>Proficient in cross-disciplinary tools like Tableau, Photoshop, and Blender to streamline data visualization, digital design, and 3D modeling workflows.</p>
+                <h3 data-i18n="skill.allrounder.title">All-Rounder</h3>
+                <p data-i18n="skill.allrounder.desc">Proficient in cross-disciplinary tools like Tableau, Photoshop, and Blender to streamline data visualization, digital design, and 3D modeling workflows.</p>
               </div>
             </li>
             <li class="wow fadeInLeft" data-wow-duration="1.5s" data-wow-delay="0.2s">
               <div class="inner"> <img class="svg" src="img/svg/study-5.svg" alt="" />
-                <h3>Learner</h3>
-                <p>Lifelong learner committed to upskilling through courses, projects, and tech trends to innovate in fast-evolving fields.</p>
+                <h3 data-i18n="skill.learner.title">Learner</h3>
+                <p data-i18n="skill.learner.desc">Lifelong learner committed to upskilling through courses, projects, and tech trends to innovate in fast-evolving fields.</p>
               </div>
             </li>
             <li class="wow fadeInLeft" data-wow-duration="1.5s" data-wow-delay="0.4s">
               <div class="inner"> <img class="svg" src="img/svg/share.svg" alt="" />
-                <h3>Social skills</h3>
-                <p>I foster inclusive collaboration by bridging perspectives across backgrounds to drive shared goals.​​</p>
+                <h3 data-i18n="skill.social.title">Social skills</h3>
+                <p data-i18n="skill.social.desc">I foster inclusive collaboration by bridging perspectives across backgrounds to drive shared goals.​​</p>
               </div>
             </li>
           </ul>
           <div class="lets_work wow fadeInLeft" data-wow-duration="1.5s">
-            <p>Are you interested in me? <a href="#contact"> Please contact with me</a></p>
+            <p><span data-i18n="skill.letswork">Are you interested in me? </span><a href="#contact"><span data-i18n="skill.contactlink"> Please contact with me</span></a></p>
           </div>
         </div>
       </div>
@@ -217,18 +226,18 @@
   <div class="arlo_tm_section" id="portfolio">
     <div class="arlo_tm_portfolio">
       <div class="container">
-        <div class="arlo_tm_main_title"><span>Portfolio</span>
-          <h3>Featured Works</h3>
+        <div class="arlo_tm_main_title"><span data-i18n="portfolio.subtitle">Portfolio</span>
+          <h3 data-i18n="portfolio.title">Featured Works</h3>
         </div>
         <div class="portfolio_inner">
           <div class="arlo_tm_portfolio_titles"></div>
           <div class="portfolio_filter">
             <ul>
-              <li><a href="#" class="current" data-filter="*">All</a></li>
-              <li><a href="#" data-filter=".game">Game</a></li>
-              <li><a href="#" data-filter=".ml">ML</a></li>
-              <li><a href="#" data-filter=".iot">IoT</a></li>
-              <li><a href="#" data-filter=".ai_agent">AI Agent</a></li>
+              <li><a href="#" class="current" data-filter="*" data-i18n="portfolio.all">All</a></li>
+              <li><a href="#" data-filter=".game" data-i18n="portfolio.game">Game</a></li>
+              <li><a href="#" data-filter=".ml" data-i18n="portfolio.ml">ML</a></li>
+              <li><a href="#" data-filter=".iot" data-i18n="portfolio.iot">IoT</a></li>
+              <li><a href="#" data-filter=".ai_agent" data-i18n="portfolio.aiagent">AI Agent</a></li>
             </ul>
           </div>
           <div class="portfolio_list">
@@ -302,21 +311,21 @@
     <div class="arlo_tm_contact">
       <div class="container">
         <div class="contact_inner">
-          <div class="arlo_tm_main_title"><span>Contact</span>
-            <h3>Get in Touch</h3>
+          <div class="arlo_tm_main_title"><span data-i18n="contact.subtitle">Contact</span>
+            <h3 data-i18n="contact.title">Get in Touch</h3>
           </div>
           <div class="desc">
-            <p class="wow txt" data-splitting>Please contact me through the following contact information:</p>
+            <p class="wow txt" data-splitting data-i18n="contact.desc">Please contact me through the following contact information:</p>
           </div>
         </div>
         <li> <img class="svg" src="img/svg/message-3.svg" alt="" /> <span>
-          <label>Mail:</label>
+          <label data-i18n="contact.mail">Mail:</label>
           <a href="mailto:shanhezhao4@gmail.com">shanhezhao4&#64;gmail.com</a> or
           <a href="mailto:2651671851@qq.com">2651671851&#64;qq.com</a>
         </span>
         </li>
         <li> <img class="svg" src="img/svg/call-2.svg" alt="" /> <span>
-          <label>Phone:</label>
+          <label data-i18n="contact.phone">Phone:</label>
           <a href="tel:+852 5260 8427">+852 5260 8427</a> or 
           <a href="tel:+86 181 3933 1666">+86 181 3933 1666</a>
         </span>
@@ -330,7 +339,7 @@
       <div class="container">
         <div class="inner">
           <div class="copy wow fadeInLeft" data-wow-duration="1.5s">
-            <p>&copy;Copyright 2025. All rights are By <a href="https://github.com/Edward-Holmes">Edward</a>.</p>
+            <p><span data-i18n="copyright">&copy;Copyright 2026. All rights are By</span> <a href="https://github.com/Edward-Holmes">Edward</a>.</p>
           </div>
         </div>
       </div>
@@ -346,6 +355,7 @@
 <!--[if lt IE 10]><script type="text/javascript" src="js/ie8.js"></script><![endif]-->
 <script src="js/plugins.js"></script>
 <script src="js/init.js"></script>
+<script src="js/i18n.js"></script>
 <script async defer src="http://www.google.cn/maps/api/js?key=AIzaSyA5bpEs3xlB8vhxNFErwoo3MXR64uavf6Y&amp;callback=initMap"></script>
 <!-- /SCRIPTS -->
 </body>
