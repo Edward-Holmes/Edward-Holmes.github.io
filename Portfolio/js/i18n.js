@@ -1,13 +1,13 @@
 /*
  * Language Switcher - i18n
- * Supports: en (English), zh (Chinese)
+ * Supports: en-US (English), zh-CN (Chinese)
  */
 
 var i18n = (function () {
     'use strict';
 
     var translations = {
-        en: {
+        'en-US': {
             // Navigation
             'nav.home': 'Home',
             'nav.about': 'About',
@@ -17,7 +17,7 @@ var i18n = (function () {
 
             // Hero
             'hero.name.first': 'ZHAO',
-            'hero.name.last': 'Shanhe',
+            'hero.name.last': 'Shanhe (Edward)',
             'hero.prefix': "I'm",
 
             // About
@@ -68,6 +68,22 @@ var i18n = (function () {
             'portfolio.iot': 'IoT',
             'portfolio.aiagent': 'AI Agent',
 
+            // Portfolio items
+            'portfolio.item1.title': 'Darabun (Unity 2D Game, Team 6 with Peter PAN)',
+            'portfolio.item1.category': 'Game',
+            'portfolio.item2.title': 'Climax Soldier (Unity 3D Game, Team 6 with Peter PAN)',
+            'portfolio.item2.category': 'Game',
+            'portfolio.item3.title': 'An AIoT Parking System',
+            'portfolio.item3.category': 'ML & IoT',
+            'portfolio.item4.title': 'A Little Game (H5 Game)',
+            'portfolio.item4.category': 'Game',
+            'portfolio.item5.title': 'DDoS Attack Detection',
+            'portfolio.item5.category': 'ML',
+            'portfolio.item6.title': 'LLM Big Data Text Sentiment Analysis',
+            'portfolio.item6.category': 'ML',
+            'portfolio.item7.title': 'Cutepetit (Desktop Pet)',
+            'portfolio.item7.category': 'AI Agent',
+
             // Contact
             'contact.subtitle': 'Contact',
             'contact.title': 'Get in Touch',
@@ -82,7 +98,7 @@ var i18n = (function () {
             'lang.label': 'EN'
         },
 
-        zh: {
+        'zh-CN': {
             // Navigation
             'nav.home': '首页',
             'nav.about': '关于',
@@ -91,9 +107,9 @@ var i18n = (function () {
             'nav.contact': '联系',
 
             // Hero
-            'hero.name.first': 'ZHAO',
-            'hero.name.last': 'Shanhe',
-            'hero.prefix': '我是一名',
+            'hero.name.first': '赵',
+            'hero.name.last': '珊禾 (Edward)',
+            'hero.prefix': '一名',
 
             // About
             'about.subtitle': '个人简介',
@@ -143,6 +159,22 @@ var i18n = (function () {
             'portfolio.iot': '物联网',
             'portfolio.aiagent': '人工智能代理',
 
+            // Portfolio items
+            'portfolio.item1.title': 'Darabun（Unity 2D 游戏，与 Peter PAN 一起组建 Team 6 ）',
+            'portfolio.item1.category': '游戏',
+            'portfolio.item2.title': 'Climax Soldier（Unity 3D 游戏，与 Peter PAN 一起组建 Team 6 ）',
+            'portfolio.item2.category': '游戏',
+            'portfolio.item3.title': 'AIoT 智能停车系统',
+            'portfolio.item3.category': '机器学习 & 物联网',
+            'portfolio.item4.title': '小游戏（H5 小游戏）',
+            'portfolio.item4.category': '游戏',
+            'portfolio.item5.title': 'DDoS 攻击检测',
+            'portfolio.item5.category': '机器学习',
+            'portfolio.item6.title': 'LLM 大数据文本情感分析',
+            'portfolio.item6.category': '机器学习',
+            'portfolio.item7.title': 'Cutepetit（桌宠）',
+            'portfolio.item7.category': '人工智能代理',
+
             // Contact
             'contact.subtitle': '与我联系',
             'contact.title': '联系方式',
@@ -158,18 +190,18 @@ var i18n = (function () {
         }
     };
 
-    var currentLang = localStorage.getItem('lang') || 'en';
+    var currentLang = localStorage.getItem('lang') || 'en-US';
 
     // Typed.js strings per language
     var typedStrings = {
-        en: ['a Tech Enthusiast', 'a Developer', 'an AI Learner'],
-        zh: ['科技爱好者', '开发者', 'AI学习者']
+        'en-US': ['a Tech Enthusiast', 'a Developer', 'an AI Learner'],
+        'zh-CN': ['科技爱好者', '开发者', 'AI学习者']
     };
 
     function setLanguage(lang) {
         currentLang = lang;
         localStorage.setItem('lang', lang);
-        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+        document.documentElement.lang = lang === 'zh-CN' ? 'zh-CN' : 'en-US';
 
         // Update all data-i18n elements
         var elements = document.querySelectorAll('[data-i18n]');
@@ -186,6 +218,28 @@ var i18n = (function () {
             var pKey = placeholderElements[j].getAttribute('data-i18n-placeholder');
             if (translations[lang] && translations[lang][pKey]) {
                 placeholderElements[j].placeholder = translations[lang][pKey];
+            }
+        }
+
+        // Update data-title attributes (portfolio items)
+        // Use jQuery .data() to update cache — jQuery caches data-* values on first read,
+        // so setAttribute alone won't affect subsequent jQuery(this).data('title') calls.
+        var titleElements = document.querySelectorAll('[data-i18n-title]');
+        for (var t = 0; t < titleElements.length; t++) {
+            var tKey = titleElements[t].getAttribute('data-i18n-title');
+            if (translations[lang] && translations[lang][tKey]) {
+                titleElements[t].setAttribute('data-title', translations[lang][tKey]);
+                jQuery(titleElements[t]).data('title', translations[lang][tKey]);
+            }
+        }
+
+        // Update data-category attributes (portfolio items)
+        var catElements = document.querySelectorAll('[data-i18n-category]');
+        for (var c = 0; c < catElements.length; c++) {
+            var cKey = catElements[c].getAttribute('data-i18n-category');
+            if (translations[lang] && translations[lang][cKey]) {
+                catElements[c].setAttribute('data-category', translations[lang][cKey]);
+                jQuery(catElements[c]).data('category', translations[lang][cKey]);
             }
         }
 
@@ -235,7 +289,7 @@ var i18n = (function () {
     }
 
     function toggleLanguage() {
-        var newLang = currentLang === 'en' ? 'zh' : 'en';
+        var newLang = currentLang === 'en-US' ? 'zh-CN' : 'en-US';
         setLanguage(newLang);
     }
 
